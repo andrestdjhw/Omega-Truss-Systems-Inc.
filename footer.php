@@ -1,6 +1,13 @@
-<div class="border-t border-gray-300 mt-4 py-4">
-  <div class="max-w-4xl px-4 mx-auto text-xs text-gray-400">Your footer content here.</div>
-</div>
+<!-- Footer (React) -->
+<div
+  id="react-footer"
+  data-home="<?php echo esc_url(get_home_url()); ?>"
+  data-logo="<?php echo esc_url(home_url('/wp-content/uploads/2026/07/Omega_Logotipo-Horizontal-04.png')); ?>"
+  data-pattern="<?php echo esc_url(home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01-scaled.png')); ?>"
+></div>
+
+<!-- Chatbot (React) — el mount ya está listo; se activa al importar el componente en src/index.js -->
+<div id="react-chatbot"></div>
 
 <?php wp_footer(); ?>
 </body>

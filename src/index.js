@@ -1,10 +1,18 @@
-import Person from "./scripts/Person"
-import ExampleReactComponent from "./scripts/ExampleReactComponent"
 import React from "react"
 import ReactDOM from "react-dom/client"
+import Navbar from "./scripts/Navbar"
+import Footer from "./scripts/Footer"
 
-const person1 = new Person("Brad")
-if (document.querySelector("#render-react-example-here")) {
-  const root = ReactDOM.createRoot(document.querySelector("#render-react-example-here"))
-  root.render(<ExampleReactComponent />)
+function mount(selector, Component) {
+  const el = document.querySelector(selector)
+  if (el) ReactDOM.createRoot(el).render(<Component />)
 }
+
+mount("#react-navbar", Navbar)
+mount("#react-footer", Footer)
+
+// Próximos componentes (descomentar cuando existan):
+// import ContactForm from "./scripts/ContactForm"
+// import Chatbot from "./scripts/Chatbot"
+// mount("#react-contact-form", ContactForm)
+// mount("#react-chatbot", Chatbot)
