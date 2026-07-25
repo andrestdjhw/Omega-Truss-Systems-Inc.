@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@source "../";
 
 /* ===== Tipografías de marca (self-hosted en /fonts/) =====
    Cargando los archivos originales .otf/.ttf tal cual están en /fonts/.
@@ -319,4 +320,102 @@
     transform: translateY(-1px);
     filter: brightness(1.12);
   }
+}
+
+/* ===== Chatbot launcher (misma receta 3D del kit) ===== */
+@layer components {
+  .chat-launcher {
+    --round: 9999px;
+    position: fixed;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.5rem;
+    width: 3.5rem;
+    overflow: hidden;
+    border-radius: var(--round);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #fff;
+    background:
+      radial-gradient(70% 70% at 50% 100%, rgba(90, 143, 199, 0.65) 0%, rgba(90, 143, 199, 0) 100%),
+      linear-gradient(0deg, var(--color-navy), var(--color-navy));
+    box-shadow: 0 6px 18px rgba(22, 40, 60, 0.35);
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+  .chat-launcher::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 9999px;
+    background: linear-gradient(178deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 60%);
+    pointer-events: none;
+  }
+  .chat-launcher svg {
+    position: relative;
+    z-index: 1;
+  }
+  .chat-launcher:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+  }
+  .chat-launcher:active {
+    transform: scale(0.94);
+  }
+}
+
+/* ===== Utilidades de página (Home y siguientes) ===== */
+
+/* Reveal al hacer scroll (activado por IntersectionObserver) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Marquee horizontal continuo */
+.marquee {
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: max-content;
+  animation: marquee-scroll 34s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* FAQ accordion */
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item .faq-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
 }
