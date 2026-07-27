@@ -98,7 +98,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
         <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy">Precision Starts Before Production</h2>
       </div>
 
-      <ol class="mt-14 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-10 reveal">
+      <ol class="mt-14 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-10 reveal-stagger">
         <?php
         $steps = array('Engineering', '3D Modeling', 'Fabrication', 'Quality Control', 'Delivery', 'Installation', 'Inspection Support');
         foreach ($steps as $i => $step) : ?>
@@ -124,7 +124,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
     <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
       <h2 class="text-3xl lg:text-5xl font-bold leading-tight reveal">When Failure Isn't an Option</h2>
 
-      <div class="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 reveal">
+      <div class="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 reveal-stagger">
         <div class="min-w-0">
           <p class="font-display text-5xl lg:text-7xl font-extrabold text-white"><span class="js-count" data-count="98" data-decimals="0">0</span><span class="text-ember">%</span></p>
           <p class="mt-3 text-sm uppercase tracking-[0.14em] text-white/60 font-display font-semibold">On-Time Delivery</p>
@@ -159,7 +159,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
         </a>
       </div>
 
-      <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
         <?php
         $services = array(
           array('Custom Roof Trusses', 'Engineered-to-order roof systems for complex architecture, long spans and code-critical conditions.', '/custom-roof-trusses/'),
@@ -171,7 +171,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
         );
         foreach ($services as $svc) : ?>
           <a href="<?php echo esc_url(home_url($svc[2])); ?>"
-             class="group reveal flex min-w-0 flex-col justify-between border border-navy/10 p-7 hover:border-ember transition-colors">
+             class="group flex min-w-0 flex-col justify-between border border-navy/10 p-7 hover:border-ember transition-colors">
             <div>
               <h3 class="font-display text-lg font-bold text-navy [overflow-wrap:anywhere]"><?php echo esc_html($svc[0]); ?></h3>
               <p class="mt-3 text-sm leading-relaxed text-navy/70"><?php echo esc_html($svc[1]); ?></p>
@@ -206,7 +206,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
       <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember reveal">FAQs</p>
       <h2 class="mt-4 text-3xl lg:text-4xl font-bold leading-tight text-navy reveal">Straight answers, engineer to builder.</h2>
 
-      <div class="mt-10 reveal">
+      <div class="mt-10 reveal-stagger">
         <?php
         $faqs = array(
           array('Do you handle engineering in-house or outsource it?', "Everything is in-house. The same team that engineers your truss system fabricates it and installs it. That's how revisions get resolved in days instead of weeks."),
@@ -273,7 +273,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Reveals al hacer scroll
-  var revealEls = document.querySelectorAll('.reveal');
+  var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
   if ('IntersectionObserver' in window && !reduce) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {

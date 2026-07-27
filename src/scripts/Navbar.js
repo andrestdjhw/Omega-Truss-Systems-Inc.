@@ -18,19 +18,22 @@ import { PHONE, EMAIL, ADDRESS, MAPS_URL, SOCIALS, SocialIcon } from "./brand"
 /* ------------------------------------------------------------------ */
 
 const SERVICES = [
-  { label: "Custom Roof Trusses", href: "/custom-roof-trusses/" },
-  { label: "Floor Trusses", href: "/floor-trusses/" },
-  { label: "Structural Engineering & CAD", href: "/structural-engineering-cad/" },
-  { label: "Fabrication & Quality Control", href: "/fabrication-quality-control/" },
-  { label: "Installation", href: "/installation/" },
-  { label: "Roof Sheathing & Project Support", href: "/roof-sheathing-project-support/" },
+  { label: "Custom Roof Trusses", href: "/custom-roof-trusses/", desc: "Engineered-to-order roof systems for complex architecture." },
+  { label: "Floor Trusses", href: "/floor-trusses/", desc: "Open-web systems that simplify MEP and protect schedules." },
+  { label: "Structural Engineering & CAD", href: "/structural-engineering-cad/", desc: "Founder-led engineering, Title 24-aligned, plan-check ready." },
+  { label: "Fabrication & Quality Control", href: "/fabrication-quality-control/", desc: "Precision fabrication with a 2.4% internal defect rate." },
+  { label: "Installation", href: "/installation/", desc: "Set by our own cross-trained crews. One accountable team." },
+  { label: "Roof Sheathing & Project Support", href: "/roof-sheathing-project-support/", desc: "Bundled scope through inspection sign-off." },
 ]
 
-const LINKS = [
-  { label: "Featured Projects", href: "/featured-projects/" },
+// Contact no va en el menú: el CTA "Schedule a Consultation" cumple ese rol
+const LINKS_BEFORE = [
   { label: "About", href: "/about/" },
+  { label: "Featured Projects", href: "/featured-projects/" },
+]
+
+const LINKS_AFTER = [
   { label: "Location", href: "/location/" },
-  { label: "Contact", href: "/contact/" },
 ]
 
 const CTA = { label: "Schedule a Consultation", href: "/contact/" }
@@ -114,6 +117,7 @@ export default function Navbar() {
   const [panelTop, setPanelTop] = useState(72)
 
   const dropdownRef = useRef(null)
+  const megaRef = useRef(null)
   const headerRef = useRef(null)
   const lastY = useRef(0)
 
@@ -139,7 +143,9 @@ export default function Navbar() {
   // Cerrar dropdown con click afuera / Escape
   useEffect(() => {
     const onClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) setServicesOpen(false)
+      const inButton = dropdownRef.current && dropdownRef.current.contains(e.target)
+      const inPanel = megaRef.current && megaRef.current.contains(e.target)
+      if (!inButton && !inPanel) setServicesOpen(false)
     }
     const onKey = (e) => {
       if (e.key === "Escape") {
@@ -173,6 +179,7 @@ export default function Navbar() {
   return (
     <header
       ref={headerRef}
+      onMouseLeave={() => setServicesOpen(false)}
       className={`bg-ember/95 backdrop-blur border-b border-black/10 transition-shadow duration-300 ${
         scrolled ? "shadow-[0_1px_12px_rgba(22,40,60,0.08)]" : ""
       }`}
@@ -269,6 +276,12 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-8">
+            {LINKS_BEFORE.map((l) => (
+              <a key={l.href} href={l.href} className={`${linkBase} ${isCurrent(l.href) ? currentMark : ""}`}>
+                {l.label}
+              </a>
+            ))}
+
             {/* Dropdown: Structural Solutions */}
             <div className="relative" ref={dropdownRef}>
               <button
@@ -277,37 +290,15 @@ export default function Navbar() {
                 aria-expanded={servicesOpen}
                 aria-haspopup="true"
                 onClick={() => setServicesOpen((v) => !v)}
+                onMouseEnter={() => setServicesOpen(true)}
               >
                 Structural Solutions
                 <Chevron open={servicesOpen} />
               </button>
 
-              {servicesOpen && (
-                <div
-                  className="absolute left-0 top-full mt-4 w-[340px] bg-white border border-navy/10 shadow-[0_16px_40px_rgba(22,40,60,0.12)]"
-                  role="menu"
-                >
-                  <div className="h-0.5 bg-ember" aria-hidden="true"></div>
-                  <ul className="py-2">
-                    {SERVICES.map((s) => (
-                      <li key={s.href} role="none">
-                        <a
-                          role="menuitem"
-                          href={s.href}
-                          className={`block px-5 py-3 text-[14px] text-navy/85 hover:bg-mist hover:text-navy transition-colors ${
-                            isCurrent(s.href) ? "bg-mist text-navy" : ""
-                          }`}
-                        >
-                          {s.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
 
-            {LINKS.map((l) => (
+            {LINKS_AFTER.map((l) => (
               <a key={l.href} href={l.href} className={`${linkBase} ${isCurrent(l.href) ? currentMark : ""}`}>
                 {l.label}
               </a>
@@ -342,6 +333,53 @@ export default function Navbar() {
           </button>
         </div>
       </nav>
+
+      {/* ============ MEGA-MENU: Structural Solutions ============ */}
+      {servicesOpen && (
+        <div
+          ref={megaRef}
+          role="menu"
+          aria-label="Structural Solutions"
+          className="hidden lg:block absolute left-0 right-0 top-full bg-white border-b border-navy/10 shadow-[0_24px_60px_rgba(22,40,60,0.16)] mega-panel"
+        >
+          <div className="h-0.5 bg-ember" aria-hidden="true"></div>
+          <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10 grid grid-cols-12 gap-10">
+            {/* Columna de encabezado */}
+            <div className="col-span-4 border-r border-navy/10 pr-10">
+              <p className="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Structural Solutions</p>
+              <p className="mt-4 font-display text-2xl font-bold leading-snug text-navy">
+                One integrated scope, engineered for California's strictest codes.
+              </p>
+              <a
+                href="/structural-solutions/"
+                className="mt-6 inline-flex items-center gap-2 font-display text-[12px] font-semibold uppercase tracking-[0.12em] text-navy hover:text-ember transition-colors"
+              >
+                Explore all solutions <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+
+            {/* Grid de servicios */}
+            <div className="col-span-8 grid grid-cols-2 gap-x-8 gap-y-2">
+              {SERVICES.map((s) => (
+                <a
+                  key={s.href}
+                  role="menuitem"
+                  href={s.href}
+                  className={`group mega-item flex min-w-0 flex-col p-4 -mx-4 ${
+                    isCurrent(s.href) ? "bg-mist" : ""
+                  }`}
+                >
+                  <span className="flex items-center justify-between gap-3 font-display text-[14px] font-bold text-navy transition-colors duration-200 group-hover:text-white">
+                    {s.label}
+                    <span className="text-ember opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0" aria-hidden="true">&rarr;</span>
+                  </span>
+                  <span className="mt-1 text-[13px] leading-relaxed text-navy/60 transition-colors duration-200 group-hover:text-white/65">{s.desc}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
       </div>
 
       {/* Panel móvil */}
@@ -352,6 +390,17 @@ export default function Navbar() {
           style={{ top: `${panelTop}px` }}
         >
           <div className="px-5 py-6">
+            {LINKS_BEFORE.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="block py-4 text-[15px] font-semibold uppercase tracking-[0.12em] text-navy border-b border-navy/10"
+                onClick={() => setMobileOpen(false)}
+              >
+                {l.label}
+              </a>
+            ))}
+
             {/* Accordion de servicios */}
             <button
               type="button"
@@ -378,7 +427,7 @@ export default function Navbar() {
               </ul>
             )}
 
-            {LINKS.map((l) => (
+            {LINKS_AFTER.map((l) => (
               <a
                 key={l.href}
                 href={l.href}

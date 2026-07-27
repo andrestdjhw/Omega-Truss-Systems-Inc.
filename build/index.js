@@ -804,35 +804,41 @@ __webpack_require__.r(__webpack_exports__);
 
 const SERVICES = [{
   label: "Custom Roof Trusses",
-  href: "/custom-roof-trusses/"
+  href: "/custom-roof-trusses/",
+  desc: "Engineered-to-order roof systems for complex architecture."
 }, {
   label: "Floor Trusses",
-  href: "/floor-trusses/"
+  href: "/floor-trusses/",
+  desc: "Open-web systems that simplify MEP and protect schedules."
 }, {
   label: "Structural Engineering & CAD",
-  href: "/structural-engineering-cad/"
+  href: "/structural-engineering-cad/",
+  desc: "Founder-led engineering, Title 24-aligned, plan-check ready."
 }, {
   label: "Fabrication & Quality Control",
-  href: "/fabrication-quality-control/"
+  href: "/fabrication-quality-control/",
+  desc: "Precision fabrication with a 2.4% internal defect rate."
 }, {
   label: "Installation",
-  href: "/installation/"
+  href: "/installation/",
+  desc: "Set by our own cross-trained crews. One accountable team."
 }, {
   label: "Roof Sheathing & Project Support",
-  href: "/roof-sheathing-project-support/"
+  href: "/roof-sheathing-project-support/",
+  desc: "Bundled scope through inspection sign-off."
 }];
-const LINKS = [{
-  label: "Featured Projects",
-  href: "/featured-projects/"
-}, {
+
+// Contact no va en el menú: el CTA "Schedule a Consultation" cumple ese rol
+const LINKS_BEFORE = [{
   label: "About",
   href: "/about/"
 }, {
+  label: "Featured Projects",
+  href: "/featured-projects/"
+}];
+const LINKS_AFTER = [{
   label: "Location",
   href: "/location/"
-}, {
-  label: "Contact",
-  href: "/contact/"
 }];
 const CTA = {
   label: "Schedule a Consultation",
@@ -946,6 +952,7 @@ function Navbar() {
   const [mobileServices, setMobileServices] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [panelTop, setPanelTop] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(72);
   const dropdownRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const megaRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const lastY = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
 
@@ -973,7 +980,9 @@ function Navbar() {
   // Cerrar dropdown con click afuera / Escape
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const onClick = e => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) setServicesOpen(false);
+      const inButton = dropdownRef.current && dropdownRef.current.contains(e.target);
+      const inPanel = megaRef.current && megaRef.current.contains(e.target);
+      if (!inButton && !inPanel) setServicesOpen(false);
     };
     const onKey = e => {
       if (e.key === "Escape") {
@@ -1004,6 +1013,7 @@ function Navbar() {
   const topLink = "inline-flex items-center gap-1.5 text-[12px] text-white/75 hover:text-white transition-colors";
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("header", {
     ref: headerRef,
+    onMouseLeave: () => setServicesOpen(false),
     className: `bg-ember/95 backdrop-blur border-b border-black/10 transition-shadow duration-300 ${scrolled ? "shadow-[0_1px_12px_rgba(22,40,60,0.08)]" : ""}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "h-0.5 bg-navy",
@@ -1092,38 +1102,25 @@ function Navbar() {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "hidden lg:flex items-center gap-8",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            children: [LINKS_BEFORE.map(l => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+              href: l.href,
+              className: `${linkBase} ${isCurrent(l.href) ? currentMark : ""}`,
+              children: l.label
+            }, l.href)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
               className: "relative",
               ref: dropdownRef,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
                 type: "button",
                 className: `${linkBase} inline-flex items-center gap-1.5 ${servicesOpen ? "text-white" : ""}`,
                 "aria-expanded": servicesOpen,
                 "aria-haspopup": "true",
                 onClick: () => setServicesOpen(v => !v),
+                onMouseEnter: () => setServicesOpen(true),
                 children: ["Structural Solutions", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Chevron, {
                   open: servicesOpen
                 })]
-              }), servicesOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                className: "absolute left-0 top-full mt-4 w-[340px] bg-white border border-navy/10 shadow-[0_16px_40px_rgba(22,40,60,0.12)]",
-                role: "menu",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-                  className: "h-0.5 bg-ember",
-                  "aria-hidden": "true"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("ul", {
-                  className: "py-2",
-                  children: SERVICES.map(s => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-                    role: "none",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-                      role: "menuitem",
-                      href: s.href,
-                      className: `block px-5 py-3 text-[14px] text-navy/85 hover:bg-mist hover:text-navy transition-colors ${isCurrent(s.href) ? "bg-mist text-navy" : ""}`,
-                      children: s.label
-                    })
-                  }, s.href))
-                })]
-              })]
-            }), LINKS.map(l => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+              })
+            }), LINKS_AFTER.map(l => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
               href: l.href,
               className: `${linkBase} ${isCurrent(l.href) ? currentMark : ""}`,
               children: l.label
@@ -1170,6 +1167,52 @@ function Navbar() {
             })
           })]
         })
+      }), servicesOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        ref: megaRef,
+        role: "menu",
+        "aria-label": "Structural Solutions",
+        className: "hidden lg:block absolute left-0 right-0 top-full bg-white border-b border-navy/10 shadow-[0_24px_60px_rgba(22,40,60,0.16)] mega-panel",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "h-0.5 bg-ember",
+          "aria-hidden": "true"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          className: "max-w-7xl mx-auto px-4 lg:px-8 py-10 grid grid-cols-12 gap-10",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "col-span-4 border-r border-navy/10 pr-10",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+              className: "font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember",
+              children: "Structural Solutions"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+              className: "mt-4 font-display text-2xl font-bold leading-snug text-navy",
+              children: "One integrated scope, engineered for California's strictest codes."
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
+              href: "/structural-solutions/",
+              className: "mt-6 inline-flex items-center gap-2 font-display text-[12px] font-semibold uppercase tracking-[0.12em] text-navy hover:text-ember transition-colors",
+              children: ["Explore all solutions ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                "aria-hidden": "true",
+                children: "\u2192"
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: "col-span-8 grid grid-cols-2 gap-x-8 gap-y-2",
+            children: SERVICES.map(s => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
+              role: "menuitem",
+              href: s.href,
+              className: `group mega-item flex min-w-0 flex-col p-4 -mx-4 ${isCurrent(s.href) ? "bg-mist" : ""}`,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+                className: "flex items-center justify-between gap-3 font-display text-[14px] font-bold text-navy transition-colors duration-200 group-hover:text-white",
+                children: [s.label, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                  className: "text-ember opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0",
+                  "aria-hidden": "true",
+                  children: "\u2192"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                className: "mt-1 text-[13px] leading-relaxed text-navy/60 transition-colors duration-200 group-hover:text-white/65",
+                children: s.desc
+              })]
+            }, s.href))
+          })]
+        })]
       })]
     }), mobileOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       id: "omega-mobile-menu",
@@ -1179,7 +1222,12 @@ function Navbar() {
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "px-5 py-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
+        children: [LINKS_BEFORE.map(l => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+          href: l.href,
+          className: "block py-4 text-[15px] font-semibold uppercase tracking-[0.12em] text-navy border-b border-navy/10",
+          onClick: () => setMobileOpen(false),
+          children: l.label
+        }, l.href)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
           type: "button",
           className: "w-full flex items-center justify-between py-4 text-left text-[15px] font-semibold uppercase tracking-[0.12em] text-navy border-b border-navy/10",
           "aria-expanded": mobileServices,
@@ -1197,7 +1245,7 @@ function Navbar() {
               children: s.label
             })
           }, s.href))
-        }), LINKS.map(l => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+        }), LINKS_AFTER.map(l => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
           href: l.href,
           className: "block py-4 text-[15px] font-semibold uppercase tracking-[0.12em] text-navy border-b border-navy/10",
           onClick: () => setMobileOpen(false),

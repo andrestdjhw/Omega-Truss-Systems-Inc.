@@ -51,7 +51,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
         <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy">Three regions. One standard.</h2>
       </div>
 
-      <div class="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div class="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-5 reveal-stagger">
         <?php
         $markets = array(
           array('San Diego County', "Multifamily development and wildfire-designated zones make San Diego one of the most code-intensive markets in the state. We engineer truss systems for fire-zone requirements and support projects through the county's demanding plan check environment."),
@@ -59,7 +59,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
           array('Riverside County & Coachella Valley', "Home base. From Thousand Palms we serve the valley's residential, multifamily and commercial growth, with the shortest lead times in our service area."),
         );
         foreach ($markets as $mk) : ?>
-          <div class="reveal min-w-0 border border-navy/10 p-8">
+          <div class="min-w-0 border border-navy/10 p-8">
             <h3 class="font-display text-xl font-bold text-navy [overflow-wrap:anywhere]"><?php echo esc_html($mk[0]); ?></h3>
             <p class="mt-4 text-sm lg:text-base leading-relaxed text-navy/70"><?php echo esc_html($mk[1]); ?></p>
           </div>
@@ -124,7 +124,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
       <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember reveal">FAQs</p>
       <h2 class="mt-4 text-3xl lg:text-4xl font-bold leading-tight text-navy reveal">Coverage, straight answers.</h2>
 
-      <div class="mt-10 reveal">
+      <div class="mt-10 reveal-stagger">
         <?php
         $faqs = array(
           array('Where is Omega based?', 'Our headquarters and fabrication facility are in Thousand Palms, California, in the Coachella Valley.'),
@@ -180,7 +180,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
 <script>
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealEls = document.querySelectorAll('.reveal');
+  var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
   if ('IntersectionObserver' in window && !reduce) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {

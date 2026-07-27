@@ -45,7 +45,7 @@ $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01
       </div>
 
       <!-- Contacto directo -->
-      <aside class="lg:col-span-4 lg:col-start-9">
+      <aside class="lg:col-span-4 lg:col-start-9 reveal-stagger">
         <div class="border border-navy/10 p-8">
           <h2 class="font-display text-lg font-bold text-navy">Prefer to talk it through?</h2>
           <!-- TODO NAP: reemplazar placeholders -->
@@ -73,7 +73,7 @@ $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01
 <script>
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealEls = document.querySelectorAll('.reveal');
+  var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
   if ('IntersectionObserver' in window && !reduce) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {

@@ -96,7 +96,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
          style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 60%;mask-size:auto 60%;"></div>
     <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-16 lg:py-20">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 reveal">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 reveal-stagger">
         <div class="min-w-0">
           <p class="font-display text-4xl lg:text-6xl font-extrabold"><span class="js-count" data-count="98" data-decimals="0">0</span><span class="text-ember">%</span></p>
           <p class="mt-2 text-xs uppercase tracking-[0.14em] text-white/60 font-display font-semibold">On-Time Delivery</p>
@@ -152,7 +152,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
 <script>
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealEls = document.querySelectorAll('.reveal');
+  var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
   if ('IntersectionObserver' in window && !reduce) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
