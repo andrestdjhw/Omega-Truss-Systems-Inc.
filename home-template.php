@@ -10,19 +10,22 @@ get_header();
 
 $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01-scaled.png');
 $hero_img    = get_the_post_thumbnail_url(null, 'full');
+$hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
 ?>
 
 <main id="main">
 
   <!-- ============ S1 · HERO ============ -->
   <section class="relative overflow-hidden bg-navy text-white">
-    <?php if ($hero_img) : ?>
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('<?php echo esc_url($hero_img); ?>');" aria-hidden="true"></div>
-      <div class="absolute inset-0 bg-navy/75" aria-hidden="true"></div>
-    <?php else : ?>
-      <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
-           style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 55%;mask-size:auto 55%;"></div>
-    <?php endif; ?>
+    <video
+      class="js-hero-video absolute inset-0 h-full w-full object-cover"
+      autoplay muted loop playsinline preload="metadata"
+      <?php if ($hero_img) : ?>poster="<?php echo esc_url($hero_img); ?>"<?php endif; ?>
+      aria-hidden="true"
+    >
+      <source src="<?php echo esc_url($hero_video); ?>" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-navy/70" aria-hidden="true"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-24 lg:py-36">
       <div class="max-w-3xl reveal">
@@ -271,6 +274,13 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
 <script>
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Video del hero: pausar si el usuario prefiere menos movimiento
+  var heroVideo = document.querySelector('.js-hero-video');
+  if (heroVideo && reduce) {
+    heroVideo.pause();
+    heroVideo.removeAttribute('autoplay');
+  }
 
   // Reveals al hacer scroll
   var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
