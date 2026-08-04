@@ -50,23 +50,29 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
         <?php
         $services = array(
-          array('Custom Roof Trusses', 'Engineered-to-order roof systems for complex architecture: long spans, vaulted geometries, hillside and fire-zone conditions.', '/custom-roof-trusses/'),
-          array('Floor Trusses', 'Open-web floor systems that simplify MEP routing and keep multifamily schedules moving.', '/floor-trusses/'),
-          array('Structural Engineering & CAD', 'Founder-led engineering resolves the structural challenges most fabricators send back to the architect — with Title 24-aligned drawings ready for plan check.', '/structural-engineering-cad/'),
-          array('Fabrication & Quality Control', 'Precision in-house fabrication with an internal QC process that holds our defect rate to 2.4%, well below the 6.8% industry average.', '/fabrication-quality-control/'),
-          array('Installation', 'Our own crews install what we engineer. One standard, one accountable team, no subcontractor roulette.', '/installation/'),
-          array('Roof Sheathing & Project Support', 'Bundled sheathing, project coordination and inspection support — one contract, one point of accountability, through sign-off.', '/roof-sheathing-project-support/'),
+          array('Custom Roof Trusses', 'Engineered-to-order roof systems for complex architecture: long spans, vaulted geometries, hillside and fire-zone conditions.', '/custom-roof-trusses/', '/wp-content/uploads/2026/08/CustomRoofTrusses-scaled.jpg'),
+          array('Floor Trusses', 'Open-web floor systems that simplify MEP routing and keep multifamily schedules moving.', '/floor-trusses/', '/wp-content/uploads/2026/08/FloorTrusses-scaled.jpg'),
+          array('Structural Engineering & CAD', 'Founder-led engineering resolves the structural challenges most fabricators send back to the architect — with Title 24-aligned drawings ready for plan check.', '/structural-engineering-cad/', '/wp-content/uploads/2026/08/StructuralEngineeringCAD-scaled.jpg'),
+          array('Fabrication & Quality Control', 'Precision in-house fabrication with an internal QC process that holds our defect rate to 2.4%, well below the 6.8% industry average.', '/fabrication-quality-control/', '/wp-content/uploads/2026/08/FabricationQA-scaled.jpg'),
+          array('Installation', 'Our own crews install what we engineer. One standard, one accountable team, no subcontractor roulette.', '/installation/', '/wp-content/uploads/2026/08/Installation-scaled.jpg'),
+          array('Roof Sheathing & Project Support', 'Bundled sheathing, project coordination and inspection support — one contract, one point of accountability, through sign-off.', '/roof-sheathing-project-support/', '/wp-content/uploads/2026/08/RoofSheating-scaled.jpg'),
         );
         foreach ($services as $svc) : ?>
           <a href="<?php echo esc_url(home_url($svc[2])); ?>"
-             class="group flex min-w-0 flex-col justify-between border border-navy/10 p-8 hover:border-ember transition-colors">
-            <div>
-              <h2 class="font-display text-xl font-bold text-navy [overflow-wrap:anywhere]"><?php echo esc_html($svc[0]); ?></h2>
-              <p class="mt-4 text-sm lg:text-base leading-relaxed text-navy/70"><?php echo esc_html($svc[1]); ?></p>
+             class="group flex min-w-0 flex-col overflow-hidden border border-navy/10 hover:border-ember transition-colors">
+            <div class="overflow-hidden">
+              <img src="<?php echo esc_url(home_url($svc[3])); ?>" alt="<?php echo esc_attr($svc[0]); ?>"
+                   class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
             </div>
-            <span class="mt-8 inline-flex items-center gap-2 font-display text-[12px] font-semibold uppercase tracking-[0.12em] text-ember">
-              View service <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
-            </span>
+            <div class="flex flex-1 flex-col justify-between p-8">
+              <div>
+                <h2 class="font-display text-xl font-bold text-navy [overflow-wrap:anywhere]"><?php echo esc_html($svc[0]); ?></h2>
+                <p class="mt-4 text-sm lg:text-base leading-relaxed text-navy/70"><?php echo esc_html($svc[1]); ?></p>
+              </div>
+              <span class="mt-8 inline-flex items-center gap-2 font-display text-[12px] font-semibold uppercase tracking-[0.12em] text-ember">
+                View service <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
+              </span>
+            </div>
           </a>
         <?php endforeach; ?>
       </div>

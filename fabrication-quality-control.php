@@ -34,6 +34,9 @@ get_header();
 
 $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01-scaled.png');
 $hero_img    = get_the_post_thumbnail_url(null, 'full');
+if (!$hero_img) {
+  $hero_img = home_url('/wp-content/uploads/2026/08/FabricationQA-scaled.jpg'); // imagen del servicio (Media Library); la Featured Image la sobreescribe
+}
 ?>
 
 <main id="main">

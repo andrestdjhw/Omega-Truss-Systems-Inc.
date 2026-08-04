@@ -15,8 +15,11 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
 
 <main id="main">
 
+  <!-- ============ S1+S2 · HERO + MARQUEE = un viewport completo ============ -->
+  <div class="hero-viewport flex flex-col">
+
   <!-- ============ S1 · HERO ============ -->
-  <section class="relative overflow-hidden bg-navy text-white">
+  <section class="relative flex-1 flex items-center overflow-hidden bg-navy text-white">
     <video
       class="js-hero-video absolute inset-0 h-full w-full object-cover"
       autoplay muted loop playsinline preload="metadata"
@@ -27,7 +30,7 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
     </video>
     <div class="absolute inset-0 bg-navy/70" aria-hidden="true"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-24 lg:py-36">
+    <div class="relative w-full max-w-7xl mx-auto px-4 lg:px-8 py-16">
       <div class="max-w-3xl reveal">
         <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.05] [overflow-wrap:anywhere]">
           Engineering Confidence Into Every Structure.
@@ -45,9 +48,10 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
             <span class="fold" aria-hidden="true"></span>
             <span class="inner">Schedule a Consultation</span>
           </a>
-          <a href="<?php echo esc_url(home_url('/structural-solutions/')); ?>"
-             class="inline-flex items-center border border-white/40 px-5 py-3 font-display text-[13px] font-semibold uppercase tracking-[0.12em] text-white hover:border-white hover:bg-white hover:text-navy transition-colors">
-            Explore Structural Solutions
+          <a href="<?php echo esc_url(home_url('/structural-solutions/')); ?>" class="btn-cta btn-cta--white" style="--fold-bg:var(--color-navy);">
+            <span class="points_wrapper" aria-hidden="true"><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span></span>
+            <span class="fold" aria-hidden="true"></span>
+            <span class="inner">Explore Structural Solutions</span>
           </a>
         </div>
       </div>
@@ -72,6 +76,8 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
       </div>
     </div>
   </section>
+
+  </div><!-- /hero-viewport -->
 
   <!-- ============ S3 · WHY BUILDERS CHOOSE OMEGA ============ -->
   <section class="bg-white">
@@ -165,23 +171,29 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
       <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
         <?php
         $services = array(
-          array('Custom Roof Trusses', 'Engineered-to-order roof systems for complex architecture, long spans and code-critical conditions.', '/custom-roof-trusses/'),
-          array('Floor Trusses', 'Open-web floor systems that simplify MEP routing and keep multifamily schedules moving.', '/floor-trusses/'),
-          array('Structural Engineering & CAD', 'Founder-led engineering and fully detailed, Title 24-aligned drawings, ready for plan check.', '/structural-engineering-cad/'),
-          array('Fabrication & Quality Control', 'Precision in-house fabrication with an internal QC process that holds defects to 2.4%.', '/fabrication-quality-control/'),
-          array('Installation', 'Our own crews install what we engineer. One standard, one accountable team.', '/installation/'),
-          array('Roof Sheathing & Project Support', 'Bundled sheathing, project coordination and inspection support under one contract.', '/roof-sheathing-project-support/'),
+          array('Custom Roof Trusses', 'Engineered-to-order roof systems for complex architecture, long spans and code-critical conditions.', '/custom-roof-trusses/', '/wp-content/uploads/2026/08/CustomRoofTrusses-scaled.jpg'),
+          array('Floor Trusses', 'Open-web floor systems that simplify MEP routing and keep multifamily schedules moving.', '/floor-trusses/', '/wp-content/uploads/2026/08/FloorTrusses-scaled.jpg'),
+          array('Structural Engineering & CAD', 'Founder-led engineering and fully detailed, Title 24-aligned drawings, ready for plan check.', '/structural-engineering-cad/', '/wp-content/uploads/2026/08/StructuralEngineeringCAD-scaled.jpg'),
+          array('Fabrication & Quality Control', 'Precision in-house fabrication with an internal QC process that holds defects to 2.4%.', '/fabrication-quality-control/', '/wp-content/uploads/2026/08/FabricationQA-scaled.jpg'),
+          array('Installation', 'Our own crews install what we engineer. One standard, one accountable team.', '/installation/', '/wp-content/uploads/2026/08/Installation-scaled.jpg'),
+          array('Roof Sheathing & Project Support', 'Bundled sheathing, project coordination and inspection support under one contract.', '/roof-sheathing-project-support/', '/wp-content/uploads/2026/08/RoofSheating-scaled.jpg'),
         );
         foreach ($services as $svc) : ?>
           <a href="<?php echo esc_url(home_url($svc[2])); ?>"
-             class="group flex min-w-0 flex-col justify-between border border-navy/10 p-7 hover:border-ember transition-colors">
-            <div>
-              <h3 class="font-display text-lg font-bold text-navy [overflow-wrap:anywhere]"><?php echo esc_html($svc[0]); ?></h3>
-              <p class="mt-3 text-sm leading-relaxed text-navy/70"><?php echo esc_html($svc[1]); ?></p>
+             class="group flex min-w-0 flex-col overflow-hidden border border-navy/10 hover:border-ember transition-colors">
+            <div class="overflow-hidden">
+              <img src="<?php echo esc_url(home_url($svc[3])); ?>" alt="<?php echo esc_attr($svc[0]); ?>"
+                   class="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
             </div>
-            <span class="mt-6 inline-flex items-center gap-2 font-display text-[12px] font-semibold uppercase tracking-[0.12em] text-ember">
-              Learn more <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
-            </span>
+            <div class="flex flex-1 flex-col justify-between p-7">
+              <div>
+                <h3 class="font-display text-lg font-bold text-navy [overflow-wrap:anywhere]"><?php echo esc_html($svc[0]); ?></h3>
+                <p class="mt-3 text-sm leading-relaxed text-navy/70"><?php echo esc_html($svc[1]); ?></p>
+              </div>
+              <span class="mt-6 inline-flex items-center gap-2 font-display text-[12px] font-semibold uppercase tracking-[0.12em] text-ember">
+                Learn more <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
+              </span>
+            </div>
           </a>
         <?php endforeach; ?>
       </div>
@@ -274,6 +286,19 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
 <script>
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Altura real del header (React se monta async) → var --header-h
+  var navMount = document.querySelector('#react-navbar');
+  function setHeaderH() {
+    if (navMount && window.scrollY < 60) {
+      document.documentElement.style.setProperty('--header-h', navMount.getBoundingClientRect().height + 'px');
+    }
+  }
+  setHeaderH();
+  if (navMount && 'ResizeObserver' in window) {
+    new ResizeObserver(setHeaderH).observe(navMount);
+  }
+  window.addEventListener('resize', setHeaderH);
 
   // Video del hero: pausar si el usuario prefiere menos movimiento
   var heroVideo = document.querySelector('.js-hero-video');

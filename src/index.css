@@ -524,3 +524,9 @@
     transition: none;
   }
 }
+
+/* Hero + marquee ocupan exactamente el primer viewport (bajo el navbar sticky) */
+.hero-viewport {
+  min-height: calc(100vh - var(--header-h, 122px));
+  min-height: calc(100svh - var(--header-h, 122px));
+}
