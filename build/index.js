@@ -172,7 +172,7 @@ function Chatbot() {
     }), open && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       role: "dialog",
       "aria-label": "Chat with Omega Truss Systems",
-      className: "fixed bottom-24 right-5 z-50 w-[360px] max-w-[calc(100vw-2.5rem)] flex flex-col overflow-hidden rounded-xl bg-white shadow-[0_18px_50px_rgba(22,40,60,0.28)] border border-navy/10",
+      className: "fixed bottom-24 right-5 z-50 w-[360px] max-w-[calc(100vw-2.5rem)] flex flex-col overflow-hidden rounded-xl bg-white shadow-[0_18px_50px_rgba(14,26,47,0.28)] border border-navy/10",
       style: {
         height: "min(480px, 70vh)"
       },
@@ -1014,7 +1014,7 @@ function Navbar() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("header", {
     ref: headerRef,
     onMouseLeave: () => setServicesOpen(false),
-    className: `bg-ember/95 backdrop-blur border-b border-black/10 transition-shadow duration-300 ${scrolled ? "shadow-[0_1px_12px_rgba(22,40,60,0.08)]" : ""}`,
+    className: `bg-ember/95 backdrop-blur border-b border-black/10 transition-shadow duration-300 ${scrolled ? "shadow-[0_1px_12px_rgba(14,26,47,0.08)]" : ""}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "h-0.5 bg-navy",
       "aria-hidden": "true"
@@ -1171,7 +1171,7 @@ function Navbar() {
         ref: megaRef,
         role: "menu",
         "aria-label": "Structural Solutions",
-        className: "hidden lg:block absolute left-0 right-0 top-full bg-white border-b border-navy/10 shadow-[0_24px_60px_rgba(22,40,60,0.16)] mega-panel",
+        className: "hidden lg:block absolute left-0 right-0 top-full bg-white border-b border-navy/10 shadow-[0_24px_60px_rgba(14,26,47,0.16)] mega-panel",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "h-0.5 bg-ember",
           "aria-hidden": "true"

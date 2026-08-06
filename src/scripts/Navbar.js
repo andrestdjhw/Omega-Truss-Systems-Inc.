@@ -181,7 +181,7 @@ export default function Navbar() {
       ref={headerRef}
       onMouseLeave={() => setServicesOpen(false)}
       className={`bg-ember/95 backdrop-blur border-b border-black/10 transition-shadow duration-300 ${
-        scrolled ? "shadow-[0_1px_12px_rgba(22,40,60,0.08)]" : ""
+        scrolled ? "shadow-[0_1px_12px_rgba(14,26,47,0.08)]" : ""
       }`}
     >
       {/* Hairline de marca */}
@@ -340,7 +340,7 @@ export default function Navbar() {
           ref={megaRef}
           role="menu"
           aria-label="Structural Solutions"
-          className="hidden lg:block absolute left-0 right-0 top-full bg-white border-b border-navy/10 shadow-[0_24px_60px_rgba(22,40,60,0.16)] mega-panel"
+          className="hidden lg:block absolute left-0 right-0 top-full bg-white border-b border-navy/10 shadow-[0_24px_60px_rgba(14,26,47,0.16)] mega-panel"
         >
           <div className="h-0.5 bg-ember" aria-hidden="true"></div>
           <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10 grid grid-cols-12 gap-10">

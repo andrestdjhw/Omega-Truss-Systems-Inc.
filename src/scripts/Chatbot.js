@@ -135,7 +135,7 @@ export default function Chatbot() {
         <div
           role="dialog"
           aria-label="Chat with Omega Truss Systems"
-          className="fixed bottom-24 right-5 z-50 w-[360px] max-w-[calc(100vw-2.5rem)] flex flex-col overflow-hidden rounded-xl bg-white shadow-[0_18px_50px_rgba(22,40,60,0.28)] border border-navy/10"
+          className="fixed bottom-24 right-5 z-50 w-[360px] max-w-[calc(100vw-2.5rem)] flex flex-col overflow-hidden rounded-xl bg-white shadow-[0_18px_50px_rgba(14,26,47,0.28)] border border-navy/10"
           style={{ height: "min(480px, 70vh)" }}
         >
           {/* Header */}

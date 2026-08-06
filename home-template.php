@@ -260,19 +260,19 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
     </script>
   </section>
 
-  <!-- ============ S9 · CLOSING STATEMENT + CTA ============ -->
-  <section class="relative overflow-hidden bg-navy text-white">
+  <!-- ============ S9 · CLOSING STATEMENT + CTA (radial sienna/rust + estampado) ============ -->
+  <section class="relative overflow-hidden band-radial text-white">
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
-         style="background-color:rgba(255,255,255,0.04);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 60%;mask-size:auto 60%;"></div>
+         style="background-color:rgba(255,255,255,0.10);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 70%;mask-size:auto 70%;"></div>
     <div class="relative max-w-5xl mx-auto px-4 lg:px-8 py-24 lg:py-32 text-center reveal">
       <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight [overflow-wrap:anywhere]">
         Every Great Home Begins With Structural Confidence.
       </h2>
-      <p class="mt-6 font-display text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
+      <p class="mt-6 font-display text-sm font-semibold uppercase tracking-[0.22em] text-white/75">
         Let's Engineer Your Next Project.
       </p>
       <div class="mt-10 flex justify-center">
-        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn-cta btn-cta--ember" style="--fold-bg:var(--color-navy);">
+        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn-cta" style="--fold-bg:var(--color-ember);">
           <span class="points_wrapper" aria-hidden="true"><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span></span>
           <span class="fold" aria-hidden="true"></span>
           <span class="inner">Schedule a Consultation</span>

@@ -46,10 +46,15 @@
 }
 
 @theme {
-  /* Marca — ajustar navy/ember al hex oficial del logo cuando llegue */
-  --color-navy: #16283C;
-  --color-ember: #E8752A;
-  --color-mist: #F4F6F8;
+  /* ===== Paleta oficial OMEGA (códigos finales del manual) ===== */
+  --color-navy: #0E1A2F;      /* PRUSSIAN BLUE — base oscura */
+  --color-ember: #AA6643;     /* CINNAMON WOOD — acento principal */
+  --color-graphite: #313131;  /* GRAPHITE — neutro oscuro / texto secundario */
+  --color-alabaster: #E8E8E8; /* ALABASTER GREY — bordes y fondos suaves */
+  --color-mist: #F8F8F8;      /* BRIGHT SNOW — fondos claros */
+  /* Derivados (tint/shade de la paleta, para el sistema 3D) */
+  --color-royal: #3D5C8F;     /* tint de Prussian — glows */
+  --color-rust: #7D4326;      /* shade de Cinnamon — profundidad */
 
   --font-display: "Gotham", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Articulat CF", "Gotham", ui-sans-serif, system-ui, sans-serif;
@@ -96,8 +101,8 @@
   .btn-cta {
     --round: 0.5rem;
     --base: var(--color-navy);              /* color base del botón */
-    --glow: rgba(90, 143, 199, 0.9);        /* resplandor: azul acero */
-    --glow-0: rgba(90, 143, 199, 0);
+    --glow: rgba(74, 108, 163, 0.9);        /* resplandor: azul acero */
+    --glow-0: rgba(74, 108, 163, 0);
     --fold-bg: var(--color-ember);          /* color del fondo detrás del botón (navbar naranja) */
     position: relative;
     display: inline-flex;
@@ -137,12 +142,34 @@
     filter: brightness(1.08);
   }
 
+  /* Variante secundaria: misma base navy + glow azul, pero el hover
+     llena el botón de blanco con texto navy */
+  .btn-cta--white::before {
+    --space: 2px;
+    background: #ffffff;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+  }
+  .btn-cta--white:hover::before {
+    opacity: 1;
+  }
+  .btn-cta--white .inner {
+    transition: color 0.25s ease;
+  }
+  .btn-cta--white:hover .inner {
+    color: var(--color-navy);
+  }
+  .btn-cta--white:hover {
+    filter: none;
+  }
+
   /* Variante naranja completa (para fondos navy, ej. footer):
      base ember + resplandor en un naranja más claro */
   .btn-cta--ember {
     --base: var(--color-ember);
-    --glow: rgba(255, 172, 112, 0.95);
-    --glow-0: rgba(255, 172, 112, 0);
+    --glow: rgba(214, 163, 130, 0.95);
+    --glow-0: rgba(214, 163, 130, 0);
   }
   .btn-cta:active {
     transform: scale(0.96);
@@ -251,8 +278,8 @@
     border-radius: var(--round);
     color: #fff;
     background:
-      radial-gradient(70% 70% at 50% 100%, rgba(90, 143, 199, 0.55) 0%, rgba(90, 143, 199, 0) 100%),
-      linear-gradient(0deg, #1d3049, #1d3049);
+      radial-gradient(70% 70% at 50% 100%, rgba(74, 108, 163, 0.55) 0%, rgba(74, 108, 163, 0) 100%),
+      linear-gradient(0deg, #182a48, #182a48);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
     transition: transform 0.2s ease, filter 0.2s ease;
   }
@@ -279,9 +306,9 @@
   /* Chip del logo de marca — misma receta, tamaño flexible */
   .brand-chip {
     --round: 0.5rem;
-    --chip-base: #1d3049;
-    --chip-glow: rgba(90, 143, 199, 0.55);
-    --chip-glow-0: rgba(90, 143, 199, 0);
+    --chip-base: #182a48;
+    --chip-glow: rgba(74, 108, 163, 0.55);
+    --chip-glow-0: rgba(74, 108, 163, 0);
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -298,8 +325,8 @@
   /* Variante naranja del chip de marca (para el footer navy) */
   .brand-chip--ember {
     --chip-base: var(--color-ember);
-    --chip-glow: rgba(255, 172, 112, 0.6);
-    --chip-glow-0: rgba(255, 172, 112, 0);
+    --chip-glow: rgba(214, 163, 130, 0.6);
+    --chip-glow-0: rgba(214, 163, 130, 0);
   }
   .brand-chip::before {
     content: "";
@@ -339,9 +366,9 @@
     cursor: pointer;
     color: #fff;
     background:
-      radial-gradient(70% 70% at 50% 100%, rgba(90, 143, 199, 0.65) 0%, rgba(90, 143, 199, 0) 100%),
+      radial-gradient(70% 70% at 50% 100%, rgba(74, 108, 163, 0.65) 0%, rgba(74, 108, 163, 0) 100%),
       linear-gradient(0deg, var(--color-navy), var(--color-navy));
-    box-shadow: 0 6px 18px rgba(22, 40, 60, 0.35);
+    box-shadow: 0 6px 18px rgba(14, 26, 47, 0.35);
     transition: transform 0.2s ease, filter 0.2s ease;
   }
   .chat-launcher::before {
@@ -487,8 +514,8 @@
   inset: 0;
   border-radius: 0.5rem;
   background:
-    radial-gradient(70% 70% at 50% 100%, rgba(90, 143, 199, 0.55) 0%, rgba(90, 143, 199, 0) 100%),
-    linear-gradient(0deg, #1d3049, #1d3049);
+    radial-gradient(70% 70% at 50% 100%, rgba(74, 108, 163, 0.55) 0%, rgba(74, 108, 163, 0) 100%),
+    linear-gradient(0deg, #182a48, #182a48);
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
@@ -511,7 +538,7 @@
 }
 .mega-item:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(22, 40, 60, 0.28);
+  box-shadow: 0 8px 22px rgba(14, 26, 47, 0.28);
 }
 .mega-item:hover::after,
 .mega-item:hover::before {
@@ -529,4 +556,10 @@
 .hero-viewport {
   min-height: calc(100vh - var(--header-h, 122px));
   min-height: calc(100svh - var(--header-h, 122px));
+}
+
+/* Banda de cierre: radial de Uiverse (catraco) en clave de paleta —
+   nucleo rust difuso al centro sobre base sienna */
+.band-radial {
+  background: radial-gradient(ellipse, var(--color-rust), transparent, var(--color-ember)) var(--color-ember);
 }
