@@ -6,7 +6,7 @@
 import React from "react"
 
 // ===== NAP — TODO: reemplazar con datos reales antes de producción =====
-export const PHONE = "(000) 000-0000"
+export const PHONE = "(760) 986-7177"
 export const EMAIL = "info@omegatruss.com"
 export const ADDRESS = "Thousand Palms, CA"
 export const MAPS_URL =

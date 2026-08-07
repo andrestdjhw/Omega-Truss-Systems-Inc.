@@ -1316,7 +1316,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // ===== NAP — TODO: reemplazar con datos reales antes de producción =====
 
-const PHONE = "(000) 000-0000";
+const PHONE = "(760) 986-7177";
 const EMAIL = "info@omegatruss.com";
 const ADDRESS = "Thousand Palms, CA";
 const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Omega+Truss+Systems+Thousand+Palms+CA"; // TODO: dirección exacta

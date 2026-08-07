@@ -94,7 +94,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
         <!-- TODO NAP: dirección exacta, teléfono y email cuando el cliente confirme -->
         <div class="mt-6 space-y-1.5 text-sm text-navy/70">
           <p>[Full address pending]</p>
-          <p>(000) 000-0000</p>
+          <p><a href="tel:+17609867177" class="hover:text-ember transition-colors">(760) 986-7177</a></p>
           <p>info@omegatruss.com</p>
         </div>
         <a href="https://www.google.com/maps/search/?api=1&query=Omega+Truss+Systems+Thousand+Palms+CA"

@@ -563,3 +563,10 @@
 .band-radial {
   background: radial-gradient(ellipse, var(--color-rust), transparent, var(--color-ember)) var(--color-ember);
 }
+
+/* Filtros de Featured Projects */
+.js-filter.is-active {
+  background-color: var(--color-navy);
+  border-color: var(--color-navy);
+  color: #fff;
+}
