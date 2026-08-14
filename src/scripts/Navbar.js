@@ -189,7 +189,7 @@ export default function Navbar() {
 
       {/* ============ TOPBAR ============ */}
       <div
-        className={`bg-navy overflow-hidden transition-[max-height] duration-300 ease-out ${
+        className={`bg-rust overflow-hidden transition-[max-height] duration-300 ease-out ${
           topbarHidden ? "max-h-0" : "max-h-12"
         }`}
       >
@@ -261,9 +261,9 @@ export default function Navbar() {
       <nav className="relative max-w-7xl mx-auto px-4 lg:px-8" aria-label="Main">
         <div className="flex items-center justify-between h-[72px] lg:h-20">
           {/* Logo */}
-          <a href={homeUrl} className="brand-chip shrink-0" aria-label="Omega Truss Systems — Home">
+          <a href={homeUrl} className="flex items-center shrink-0" aria-label="Omega Truss Systems — Home">
             {logoUrl ? (
-              <img src={logoUrl} alt="Omega Truss Systems" className="h-9 lg:h-10 w-auto" />
+              <img src={logoUrl} alt="Omega Truss Systems" className="h-9 lg:h-10 w-auto brightness-0 invert" />
             ) : (
               <span className="leading-none">
                 <span className="block text-xl lg:text-2xl font-bold tracking-[0.08em] text-white">OMEGA</span>

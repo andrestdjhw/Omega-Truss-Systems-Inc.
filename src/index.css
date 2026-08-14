@@ -564,9 +564,27 @@
   background: radial-gradient(ellipse, var(--color-rust), transparent, var(--color-ember)) var(--color-ember);
 }
 
-/* Filtros de Featured Projects */
-.js-filter.is-active {
-  background-color: var(--color-navy);
-  border-color: var(--color-navy);
-  color: #fff;
+/* Card del ContactForm con el lenguaje 3D del navbar:
+   base Prussian aclarada + luz superior + glow royal + hairline ember */
+.form-chip {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  border-top: 2px solid var(--color-ember);
+  background:
+    radial-gradient(90% 70% at 50% 100%, rgba(74, 108, 163, 0.35) 0%, rgba(74, 108, 163, 0) 100%),
+    linear-gradient(0deg, #182a48, #182a48);
+  box-shadow: 0 24px 60px rgba(14, 26, 47, 0.45);
+}
+.form-chip::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: calc(0.75rem - 1px);
+  background: linear-gradient(178deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 45%);
+  pointer-events: none;
+}
+.form-chip > * {
+  position: relative;
+  z-index: 1;
 }

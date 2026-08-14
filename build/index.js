@@ -309,22 +309,38 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * OMEGA TRUSS SYSTEMS — ContactForm (React)
  * ------------------------------------------------------------------
- * Campos del copy deck dev V1 (sección 11). Envía por admin-ajax
- * (action: omega_contact) con nonce; el handler PHP vive en
- * functions.php y manda el correo con wp_mail.
- * Mount: #react-contact-form con data-ajax y data-nonce.
+ * Soporta MULTIPLES instancias por pagina. Mount por clase:
+ *   <div class="js-contact-form" data-ajax="..." data-nonce="..." data-variant="compact|full"></div>
+ * index.js lee los data-attributes y los pasa como props.
+ *
+ * variant "full"    -> los 9 campos del copy deck (pagina Contact, cierre del Home)
+ * variant "compact" -> quick-quote para el hero (Name, Email, Phone, Project type)
+ * Ambos envian a admin-ajax action omega_contact (handler en functions.php).
  */
 
 
 
 const ROLES = ["Builder", "Architect", "General Contractor", "Developer", "Engineer", "Other"];
 const TYPES = ["Luxury Residential", "Multifamily", "Commercial", "Public", "Other"];
-const labelCls = "block font-display text-[11px] font-semibold uppercase tracking-[0.16em] text-navy/70";
-const inputCls = "mt-2 block w-full border border-navy/15 bg-white px-3.5 py-2.5 text-[14px] text-navy placeholder:text-navy/35 outline-none focus:border-navy/50 transition-colors";
-function ContactForm() {
-  const rootEl = document.querySelector("#react-contact-form");
-  const ajaxUrl = rootEl?.dataset.ajax || "/wp-admin/admin-ajax.php";
-  const nonce = rootEl?.dataset.nonce || "";
+const labelCls = "block font-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70";
+const inputCls = "mt-2 block w-full rounded-md border border-white/15 bg-white/[0.07] px-3.5 py-2.5 text-[14px] text-white placeholder:text-white/35 outline-none focus:border-royal focus:bg-white/10 transition-colors [&>option]:text-navy";
+function CtaPoints() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+    className: "points_wrapper",
+    "aria-hidden": "true",
+    children: Array.from({
+      length: 10
+    }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      className: "point"
+    }, i))
+  });
+}
+function ContactForm({
+  ajaxUrl = "/wp-admin/admin-ajax.php",
+  nonce = "",
+  variant = "full"
+}) {
+  const compact = variant === "compact";
   const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("idle"); // idle | sending | success | error
   const [form, setForm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     name: "",
@@ -336,7 +352,7 @@ function ContactForm() {
     type: "",
     timeline: "",
     message: "",
-    company_site: "" // honeypot — oculto; los bots lo llenan
+    company_site: "" // honeypot
   });
   const set = k => e => setForm(f => ({
     ...f,
@@ -363,16 +379,122 @@ function ContactForm() {
   }
   if (status === "success") {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "border border-navy/10 bg-mist p-10 text-center",
+      className: `rounded-lg border border-white/10 bg-white/[0.06] text-center ${compact ? "p-6" : "p-10"}`,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-        className: "font-display text-xl font-bold text-navy",
+        className: "font-display text-xl font-bold text-white",
         children: "Thank you."
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-        className: "mt-3 text-[15px] leading-relaxed text-navy/75",
+        className: "mt-3 text-[15px] leading-relaxed text-white/75",
         children: "Our engineering team will contact you within one business day."
       })]
     });
   }
+  const submitBtn = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+    type: "submit",
+    disabled: status === "sending",
+    className: `btn-cta btn-cta--ember [--fold-bg:#ffffff] disabled:opacity-60 disabled:pointer-events-none ${compact ? "w-full" : ""}`,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(CtaPoints, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      className: "fold",
+      "aria-hidden": "true"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      className: "inner",
+      children: status === "sending" ? "Sending…" : compact ? "Request Consultation" : "Schedule a Project Consultation"
+    })]
+  });
+  const errorMsg = status === "error" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+    className: "mt-4 text-sm text-[#D9A585]",
+    children: "Something went wrong. Please try again, or call (760) 986-7177."
+  });
+
+  /* ============ VARIANTE COMPACTA (hero) ============ */
+  if (compact) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+      onSubmit: handleSubmit,
+      noValidate: true,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "space-y-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+            htmlFor: "cfc-name",
+            className: labelCls,
+            children: "Name *"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            id: "cfc-name",
+            type: "text",
+            required: true,
+            value: form.name,
+            onChange: set("name"),
+            className: inputCls,
+            autoComplete: "name"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+            htmlFor: "cfc-email",
+            className: labelCls,
+            children: "Email *"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            id: "cfc-email",
+            type: "email",
+            required: true,
+            value: form.email,
+            onChange: set("email"),
+            className: inputCls,
+            autoComplete: "email"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+            htmlFor: "cfc-phone",
+            className: labelCls,
+            children: "Phone"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            id: "cfc-phone",
+            type: "tel",
+            value: form.phone,
+            onChange: set("phone"),
+            className: inputCls,
+            autoComplete: "tel"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+            htmlFor: "cfc-type",
+            className: labelCls,
+            children: "Project type"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+            id: "cfc-type",
+            value: form.type,
+            onChange: set("type"),
+            className: inputCls,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: "",
+              children: "Select\u2026"
+            }), TYPES.map(t => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+              value: t,
+              children: t
+            }, t))]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "hidden",
+          "aria-hidden": "true",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+            htmlFor: "cfc-website",
+            children: "Company site"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+            id: "cfc-website",
+            type: "text",
+            tabIndex: "-1",
+            autoComplete: "off",
+            value: form.company_site,
+            onChange: set("company_site")
+          })]
+        })]
+      }), errorMsg, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "mt-5",
+        children: submitBtn
+      })]
+    });
+  }
+
+  /* ============ VARIANTE COMPLETA ============ */
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
     onSubmit: handleSubmit,
     noValidate: true,
@@ -521,31 +643,9 @@ function ContactForm() {
           onChange: set("company_site")
         })]
       })]
-    }), status === "error" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-      className: "mt-5 text-sm text-ember",
-      children: "Something went wrong. Please try again, or reach us directly at info@omegatruss.com."
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    }), errorMsg, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       className: "mt-8",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
-        type: "submit",
-        disabled: status === "sending",
-        className: "btn-cta btn-cta--ember [--fold-bg:#ffffff] disabled:opacity-60 disabled:pointer-events-none",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-          className: "points_wrapper",
-          "aria-hidden": "true",
-          children: Array.from({
-            length: 10
-          }).map((_, i) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "point"
-          }, i))
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-          className: "fold",
-          "aria-hidden": "true"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-          className: "inner",
-          children: status === "sending" ? "Sending…" : "Schedule a Project Consultation"
-        })]
-      })
+      children: submitBtn
     })]
   });
 }
@@ -1019,7 +1119,7 @@ function Navbar() {
       className: "h-0.5 bg-navy",
       "aria-hidden": "true"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: `bg-navy overflow-hidden transition-[max-height] duration-300 ease-out ${topbarHidden ? "max-h-0" : "max-h-12"}`,
+      className: `bg-rust overflow-hidden transition-[max-height] duration-300 ease-out ${topbarHidden ? "max-h-0" : "max-h-12"}`,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "max-w-7xl mx-auto px-4 lg:px-8 h-10 flex items-center justify-between gap-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -1084,12 +1184,12 @@ function Navbar() {
           className: "flex items-center justify-between h-[72px] lg:h-20",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
             href: homeUrl,
-            className: "brand-chip shrink-0",
+            className: "flex items-center shrink-0",
             "aria-label": "Omega Truss Systems \u2014 Home",
             children: logoUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
               src: logoUrl,
               alt: "Omega Truss Systems",
-              className: "h-9 lg:h-10 w-auto"
+              className: "h-9 lg:h-10 w-auto brightness-0 invert"
             }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "leading-none",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -1549,8 +1649,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import ContactForm from "./scripts/ContactForm" // pendiente de build
 
-
+ // pendiente de build
 
 function mount(selector, Component) {
   const el = document.querySelector(selector);
@@ -1558,7 +1659,14 @@ function mount(selector, Component) {
 }
 mount("#react-navbar", _scripts_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"]);
 mount("#react-footer", _scripts_Footer__WEBPACK_IMPORTED_MODULE_3__["default"]);
-mount("#react-contact-form", _scripts_ContactForm__WEBPACK_IMPORTED_MODULE_5__["default"]);
+// // ContactForm: múltiples instancias por página (hero, cierre del Home, página Contact)
+document.querySelectorAll(".js-contact-form").forEach(el => {
+  react_dom_client__WEBPACK_IMPORTED_MODULE_1___default().createRoot(el).render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_scripts_ContactForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    ajaxUrl: el.dataset.ajax,
+    nonce: el.dataset.nonce,
+    variant: el.dataset.variant || "full"
+  }));
+});
 mount("#react-chatbot", _scripts_Chatbot__WEBPACK_IMPORTED_MODULE_4__["default"]);
 })();
 

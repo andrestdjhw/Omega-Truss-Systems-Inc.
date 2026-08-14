@@ -11,6 +11,7 @@ get_header();
 $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01-scaled.png');
 $hero_img    = get_the_post_thumbnail_url(null, 'full');
 $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
+$motif_url   = home_url('/wp-content/uploads/2026/08/Omega-Elementos-de-Apoyo-02-scaled.png'); // elemento de apoyo vertical
 ?>
 
 <main id="main">
@@ -30,8 +31,8 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
     </video>
     <div class="absolute inset-0 bg-navy/70" aria-hidden="true"></div>
 
-    <div class="relative w-full max-w-7xl mx-auto px-4 lg:px-8 py-16">
-      <div class="max-w-3xl reveal">
+    <div class="relative w-full max-w-7xl mx-auto px-4 lg:px-8 py-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div class="lg:col-span-6 reveal">
         <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.05] [overflow-wrap:anywhere]">
           Engineering Confidence Into Every Structure.
         </h1>
@@ -53,6 +54,18 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
             <span class="fold" aria-hidden="true"></span>
             <span class="inner">Explore Structural Solutions</span>
           </a>
+        </div>
+      </div>
+
+      <!-- Quick-quote form -->
+      <div class="lg:col-span-5 lg:col-start-8 reveal">
+        <div class="form-chip p-6 lg:p-7">
+          <p class="font-display text-lg font-bold text-white">Request a Consultation</p>
+          <p class="mt-1 text-[13px] leading-snug text-white/60">Our engineering team replies within one business day.</p>
+          <div class="js-contact-form mt-5"
+               data-variant="full"
+               data-ajax="<?php echo esc_url(admin_url('admin-ajax.php')); ?>"
+               data-nonce="<?php echo esc_attr(wp_create_nonce('omega_contact')); ?>"></div>
         </div>
       </div>
     </div>
@@ -80,8 +93,10 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
   </div><!-- /hero-viewport -->
 
   <!-- ============ S3 · WHY BUILDERS CHOOSE OMEGA ============ -->
-  <section class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10">
+  <section class="relative overflow-hidden bg-white">
+    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div class="hidden lg:block absolute left-full ml-8 top-0 bottom-0 w-40 pointer-events-none" aria-hidden="true"
+           style="background-color:rgba(170,102,67,0.32);-webkit-mask-image:url('<?php echo esc_url($motif_url); ?>');mask-image:url('<?php echo esc_url($motif_url); ?>');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:cover;mask-size:cover;-webkit-mask-position:center;mask-position:center;"></div>
       <div class="lg:col-span-5 reveal">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Why Builders Choose Omega</p>
         <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy [overflow-wrap:anywhere]">
@@ -100,8 +115,10 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
   </section>
 
   <!-- ============ S4 · PROCESS TIMELINE ============ -->
-  <section class="bg-mist">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
+  <section class="relative overflow-hidden bg-mist">
+    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
+      <div class="hidden lg:block absolute right-full mr-8 top-0 bottom-0 w-40 pointer-events-none" aria-hidden="true"
+           style="background-color:rgba(14,26,47,0.16);-webkit-mask-image:url('<?php echo esc_url($motif_url); ?>');mask-image:url('<?php echo esc_url($motif_url); ?>');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:cover;mask-size:cover;-webkit-mask-position:center;mask-position:center;transform:scaleX(-1);"></div>
       <div class="max-w-2xl reveal">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Process</p>
         <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy">Precision Starts Before Production</h2>
@@ -180,7 +197,7 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
         );
         foreach ($services as $svc) : ?>
           <a href="<?php echo esc_url(home_url($svc[2])); ?>"
-             class="group flex min-w-0 flex-col overflow-hidden border border-navy/10 hover:border-ember transition-colors">
+             class="group flex min-w-0 flex-col overflow-hidden rounded-lg border border-navy/10 shadow-[0_10px_30px_rgba(14,26,47,0.12)] transition-all duration-300 hover:border-ember hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(14,26,47,0.24)]">
             <div class="overflow-hidden">
               <img src="<?php echo esc_url(home_url($svc[3])); ?>" alt="<?php echo esc_attr($svc[0]); ?>"
                    class="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
@@ -201,8 +218,10 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
   </section>
 
   <!-- ============ S7 · BUILDER PSYCHOLOGY ============ -->
-  <section class="bg-mist">
-    <div class="max-w-5xl mx-auto px-4 lg:px-8 py-24 lg:py-32 text-center reveal">
+  <section class="relative overflow-hidden bg-mist">
+    <div class="relative max-w-5xl mx-auto px-4 lg:px-8 py-24 lg:py-32 text-center reveal">
+      <div class="hidden lg:block absolute left-full ml-8 top-0 bottom-0 w-40 pointer-events-none" aria-hidden="true"
+           style="background-color:rgba(14,26,47,0.20);-webkit-mask-image:url('<?php echo esc_url($motif_url); ?>');mask-image:url('<?php echo esc_url($motif_url); ?>');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:cover;mask-size:cover;-webkit-mask-position:center;mask-position:center;"></div>
       <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight text-navy [overflow-wrap:anywhere]">
         Your Reputation Is Built Long Before The Home Is.
       </h2>
@@ -216,8 +235,10 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
   </section>
 
   <!-- ============ S8 · FAQS ============ -->
-  <section class="bg-white">
-    <div class="max-w-3xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
+  <section class="relative overflow-hidden bg-white">
+    <div class="relative max-w-3xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
+      <div class="hidden lg:block absolute right-full mr-8 top-0 bottom-0 w-40 pointer-events-none" aria-hidden="true"
+           style="background-color:rgba(170,102,67,0.30);-webkit-mask-image:url('<?php echo esc_url($motif_url); ?>');mask-image:url('<?php echo esc_url($motif_url); ?>');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:cover;mask-size:cover;-webkit-mask-position:center;mask-position:center;transform:scaleX(-1);"></div>
       <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember reveal">FAQs</p>
       <h2 class="mt-4 text-3xl lg:text-4xl font-bold leading-tight text-navy reveal">Straight answers, engineer to builder.</h2>
 
@@ -260,23 +281,32 @@ $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
     </script>
   </section>
 
-  <!-- ============ S9 · CLOSING STATEMENT + CTA (radial sienna/rust + estampado) ============ -->
-  <section class="relative overflow-hidden band-radial text-white">
+  <!-- ============ S9 · CONTACT (cierre) ============ -->
+  <section class="relative overflow-hidden bg-navy text-white">
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
-         style="background-color:rgba(255,255,255,0.10);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 70%;mask-size:auto 70%;"></div>
-    <div class="relative max-w-5xl mx-auto px-4 lg:px-8 py-24 lg:py-32 text-center reveal">
-      <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight [overflow-wrap:anywhere]">
-        Every Great Home Begins With Structural Confidence.
-      </h2>
-      <p class="mt-6 font-display text-sm font-semibold uppercase tracking-[0.22em] text-white/75">
-        Let's Engineer Your Next Project.
-      </p>
-      <div class="mt-10 flex justify-center">
-        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn-cta" style="--fold-bg:var(--color-ember);">
-          <span class="points_wrapper" aria-hidden="true"><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span></span>
-          <span class="fold" aria-hidden="true"></span>
-          <span class="inner">Schedule a Consultation</span>
-        </a>
+         style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 60%;mask-size:auto 60%;"></div>
+    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-5 reveal">
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Let's Engineer Your Next Project</p>
+        <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight [overflow-wrap:anywhere]">
+          Every Great Home Begins With Structural Confidence.
+        </h2>
+        <p class="mt-6 text-base leading-relaxed text-white/75">
+          Tell us about your project and our engineering team will follow up within one business day.
+        </p>
+        <p class="mt-6 text-sm text-white/60">
+          Prefer to talk it through?
+          <a href="tel:+17609867177" class="ml-1 font-display font-semibold text-white hover:text-ember transition-colors">(760) 986-7177</a>
+        </p>
+        <p class="mt-2 text-xs text-white/45">No sales scripts. Your inquiry goes to the engineering team.</p>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7 reveal">
+        <div class="form-chip p-7 lg:p-9">
+          <div class="js-contact-form"
+               data-variant="full"
+               data-ajax="<?php echo esc_url(admin_url('admin-ajax.php')); ?>"
+               data-nonce="<?php echo esc_attr(wp_create_nonce('omega_contact')); ?>"></div>
+        </div>
       </div>
     </div>
   </section>
