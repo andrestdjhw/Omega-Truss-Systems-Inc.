@@ -890,6 +890,17 @@ __webpack_require__.r(__webpack_exports__);
  *
  * Topbar: se esconde al hacer scroll down y reaparece al hacer scroll up.
  * Izquierda: teléfono + email · Centro: geotag → Google Maps · Derecha: redes.
+ * La topbar usa un grid de 3 columnas (no absolute) para que el geotag no se
+ * traslape con el email en anchos intermedios.
+ *
+ * OJO 1: el <header> NO debe llevar backdrop-blur ni transform/filter propios.
+ * Cualquiera de esos crea un containing block y el panel móvil (position:
+ * fixed) se mide contra el header en vez del viewport → colapsa a 0px de alto.
+ *
+ * OJO 2: colapsar la topbar acorta el header ~40px y, como #react-navbar es
+ * sticky (está en el flujo), eso mueve el documento y dispara más eventos de
+ * scroll. Sin cooldown el toggle se realimenta y la topbar rebota. De ahí
+ * lockUntil: tras cada cambio se ignoran los eventos lo que dura la transición.
  *
  * TODO NAP (cuando el cliente confirme): PHONE, EMAIL, MAPS_URL con la
  * dirección exacta, y las URLs reales en SOCIALS.
@@ -948,13 +959,19 @@ const CTA = {
 // Estampado de marca sobre el navbar: "blanco más oscuro" (ajustable)
 const PATTERN_COLOR = "rgba(255, 255, 255, 0.12)";
 
+/* Comportamiento de la topbar (ajustables) */
+const HIDE_AFTER = 40; // px de scroll antes de permitir esconder la topbar
+const DELTA_MIN = 8; // px mínimos de movimiento para considerar un gesto real
+const SETTLE_MS = 350; // debe ser >= la duración de transition-[max-height]
+const BOOT_MS = 600; // ventana muerta al montar (scroll restoration)
+
 /* ------------------------------------------------------------------ */
 /* Iconos                                                              */
 /* ------------------------------------------------------------------ */
 
 function PinIcon() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("svg", {
-    className: "h-3.5 w-3.5",
+    className: "h-3.5 w-3.5 shrink-0",
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
@@ -971,7 +988,7 @@ function PinIcon() {
 }
 function PhoneIcon() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
-    className: "h-3.5 w-3.5",
+    className: "h-3.5 w-3.5 shrink-0",
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
@@ -985,7 +1002,7 @@ function PhoneIcon() {
 }
 function MailIcon() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("svg", {
-    className: "h-3.5 w-3.5",
+    className: "h-3.5 w-3.5 shrink-0",
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
@@ -1045,8 +1062,12 @@ function Navbar() {
   const homeUrl = rootEl?.dataset.home || "/";
   const logoUrl = rootEl?.dataset.logo || "";
   const patternUrl = rootEl?.dataset.pattern || "";
-  const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [topbarHidden, setTopbarHidden] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Estado inicial leído del scroll ya restaurado: así, al refrescar con la
+  // página scrolleada, la topbar nace en su estado final y no anima.
+  const initialY = typeof window !== "undefined" ? window.scrollY : 0;
+  const [scrolled, setScrolled] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialY > 8);
+  const [topbarHidden, setTopbarHidden] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialY > HIDE_AFTER);
   const [servicesOpen, setServicesOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [mobileOpen, setMobileOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [mobileServices, setMobileServices] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
@@ -1054,23 +1075,44 @@ function Navbar() {
   const dropdownRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const megaRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const headerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  const lastY = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  const lastY = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(initialY);
+  const hiddenRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(initialY > HIDE_AFTER);
+  const lockUntil = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  const ticking = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
 
   // Scroll: sombra + dirección para esconder/mostrar la topbar
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const onScroll = () => {
+    lastY.current = window.scrollY;
+    lockUntil.current = performance.now() + BOOT_MS;
+    const update = () => {
+      ticking.current = false;
       const y = window.scrollY;
-      setScrolled(y > 8);
-      if (y < 40) {
-        setTopbarHidden(false);
-      } else if (y > lastY.current + 4) {
-        setTopbarHidden(true); // bajando
-      } else if (y < lastY.current - 4) {
-        setTopbarHidden(false); // subiendo
-      }
+      const prev = lastY.current;
       lastY.current = y;
+      setScrolled(y > 8);
+
+      // Ventana muerta: ignora el scroll que provoca el propio colapso del
+      // header (y la ráfaga de scroll restoration justo tras el refresh).
+      if (performance.now() < lockUntil.current) return;
+      const apply = next => {
+        if (next === hiddenRef.current) return;
+        hiddenRef.current = next;
+        lockUntil.current = performance.now() + SETTLE_MS;
+        setTopbarHidden(next);
+      };
+      if (y < HIDE_AFTER) {
+        apply(false);
+        return;
+      }
+      const delta = y - prev;
+      if (Math.abs(delta) < DELTA_MIN) return;
+      apply(delta > 0); // bajando esconde, subiendo muestra
     };
-    onScroll();
+    const onScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+      window.requestAnimationFrame(update);
+    };
     window.addEventListener("scroll", onScroll, {
       passive: true
     });
@@ -1098,14 +1140,40 @@ function Navbar() {
     };
   }, []);
 
-  // Panel móvil: bloquear scroll y calcular el borde inferior del header
+  // --header-h: alto real del header con la topbar visible.
+  // Lo consume .hero-viewport en index.css (antes siempre caía al fallback
+  // de 122px). Solo se mide sin topbarHidden, que es el estado en que el
+  // hero está a la vista; así el hero no se reajusta durante el scroll.
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const measure = () => {
+      if (!headerRef.current || topbarHidden) return;
+      const h = headerRef.current.getBoundingClientRect().height;
+      document.documentElement.style.setProperty("--header-h", `${h}px`);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [topbarHidden]);
+
+  // Panel móvil: bloquear scroll y calcular el borde inferior del header.
+  // La topbar anima max-height 300ms, así que se vuelve a medir al terminar.
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     document.documentElement.style.overflow = mobileOpen ? "clip" : "";
-    if (mobileOpen && headerRef.current) {
-      setPanelTop(headerRef.current.getBoundingClientRect().bottom);
+    const measure = () => {
+      if (headerRef.current) {
+        setPanelTop(headerRef.current.getBoundingClientRect().bottom);
+      }
+    };
+    let timer;
+    if (mobileOpen) {
+      measure();
+      timer = setTimeout(measure, SETTLE_MS);
+      window.addEventListener("resize", measure);
     }
     return () => {
       document.documentElement.style.overflow = "";
+      clearTimeout(timer);
+      window.removeEventListener("resize", measure);
     };
   }, [mobileOpen, topbarHidden]);
   const linkBase = "text-[13px] font-medium uppercase tracking-[0.14em] text-white/85 hover:text-white transition-colors whitespace-nowrap";
@@ -1114,14 +1182,14 @@ function Navbar() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("header", {
     ref: headerRef,
     onMouseLeave: () => setServicesOpen(false),
-    className: `bg-ember/95 backdrop-blur border-b border-black/10 transition-shadow duration-300 ${scrolled ? "shadow-[0_1px_12px_rgba(14,26,47,0.08)]" : ""}`,
+    className: `bg-ember/95 border-b border-black/10 transition-shadow duration-300 ${scrolled ? "shadow-[0_1px_12px_rgba(14,26,47,0.08)]" : ""}`,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "h-0.5 bg-navy",
       "aria-hidden": "true"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: `bg-rust overflow-hidden transition-[max-height] duration-300 ease-out ${topbarHidden ? "max-h-0" : "max-h-12"}`,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-        className: "max-w-7xl mx-auto px-4 lg:px-8 h-10 flex items-center justify-between gap-4",
+        className: "max-w-7xl mx-auto px-4 lg:px-8 h-10 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "flex items-center gap-5 min-w-0",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
@@ -1133,22 +1201,26 @@ function Navbar() {
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
             href: `mailto:${_brand__WEBPACK_IMPORTED_MODULE_1__.EMAIL}`,
-            className: `${topLink} hidden sm:inline-flex`,
+            className: `${topLink} hidden xl:inline-flex min-w-0`,
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(MailIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "truncate",
               children: _brand__WEBPACK_IMPORTED_MODULE_1__.EMAIL
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
-          href: _brand__WEBPACK_IMPORTED_MODULE_1__.MAPS_URL,
-          target: "_blank",
-          rel: "noopener noreferrer",
-          className: `${topLink} hidden md:inline-flex absolute left-1/2 -translate-x-1/2`,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(PinIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-            children: _brand__WEBPACK_IMPORTED_MODULE_1__.ADDRESS
-          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: "flex items-center gap-2",
+          className: "flex justify-center min-w-0",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
+            href: _brand__WEBPACK_IMPORTED_MODULE_1__.MAPS_URL,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className: `${topLink} hidden lg:inline-flex`,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(PinIcon, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "whitespace-nowrap",
+              children: _brand__WEBPACK_IMPORTED_MODULE_1__.ADDRESS
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "flex items-center justify-end gap-2",
           children: _brand__WEBPACK_IMPORTED_MODULE_1__.SOCIALS.map(s => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
             href: s.url || "#",
             target: "_blank",

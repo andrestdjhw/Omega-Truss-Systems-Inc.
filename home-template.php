@@ -12,6 +12,7 @@ $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01
 $hero_img    = get_the_post_thumbnail_url(null, 'full');
 $hero_video  = home_url('/wp-content/uploads/2026/07/OmegaTrussHero-1.mp4');
 $motif_url   = home_url('/wp-content/uploads/2026/08/Omega-Elementos-de-Apoyo-02-scaled.png'); // elemento de apoyo vertical
+$band_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg'); // fondo pineado de la sección Process
 ?>
 
 <main id="main">
@@ -43,7 +44,10 @@ $motif_url   = home_url('/wp-content/uploads/2026/08/Omega-Elementos-de-Apoyo-02
         <p class="mt-4 font-display text-sm font-semibold uppercase tracking-[0.22em] text-ember">
           Designed. Fabricated. Installed. Entirely in-house.
         </p>
-        <div class="mt-10 flex flex-wrap items-center gap-4">
+        <!-- Grid de columnas iguales: inline-grid encoge al contenido y
+             auto-cols-fr reparte ese ancho en partes iguales, así ambos
+             botones miden lo que mide el más largo. -->
+        <div class="mt-10 grid grid-cols-1 gap-4 sm:inline-grid sm:grid-cols-none sm:grid-flow-col sm:auto-cols-fr">
           <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn-cta btn-cta--ember" style="--fold-bg:var(--color-navy);">
             <span class="points_wrapper" aria-hidden="true"><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span></span>
             <span class="fold" aria-hidden="true"></span>
@@ -52,7 +56,7 @@ $motif_url   = home_url('/wp-content/uploads/2026/08/Omega-Elementos-de-Apoyo-02
           <a href="<?php echo esc_url(home_url('/structural-solutions/')); ?>" class="btn-cta btn-cta--white" style="--fold-bg:var(--color-navy);">
             <span class="points_wrapper" aria-hidden="true"><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span><span class="point"></span></span>
             <span class="fold" aria-hidden="true"></span>
-            <span class="inner">Explore Structural Solutions</span>
+            <span class="inner">Structural Solutions</span>
           </a>
         </div>
       </div>
@@ -111,34 +115,6 @@ $motif_url   = home_url('/wp-content/uploads/2026/08/Omega-Elementos-de-Apoyo-02
           and professional installation.
         </p>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ S4 · PROCESS TIMELINE ============ -->
-  <section class="relative overflow-hidden bg-mist">
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
-      <div class="hidden lg:block absolute right-full mr-8 top-0 bottom-0 w-40 pointer-events-none" aria-hidden="true"
-           style="background-color:rgba(14,26,47,0.16);-webkit-mask-image:url('<?php echo esc_url($motif_url); ?>');mask-image:url('<?php echo esc_url($motif_url); ?>');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:cover;mask-size:cover;-webkit-mask-position:center;mask-position:center;transform:scaleX(-1);"></div>
-      <div class="max-w-2xl reveal">
-        <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Process</p>
-        <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy">Precision Starts Before Production</h2>
-      </div>
-
-      <ol class="mt-14 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-10 reveal-stagger">
-        <?php
-        $steps = array('Engineering', '3D Modeling', 'Fabrication', 'Quality Control', 'Delivery', 'Installation', 'Inspection Support');
-        foreach ($steps as $i => $step) : ?>
-          <li class="border-t-2 border-navy/15 pt-4 min-w-0">
-            <span class="font-display text-xs font-bold tracking-[0.12em] text-ember"><?php echo str_pad($i + 1, 2, '0', STR_PAD_LEFT); ?></span>
-            <p class="mt-2 font-display text-sm font-semibold uppercase tracking-[0.08em] text-navy [overflow-wrap:anywhere]"><?php echo esc_html($step); ?></p>
-          </li>
-        <?php endforeach; ?>
-      </ol>
-
-      <p class="mt-12 max-w-2xl text-base leading-relaxed text-navy/75 reveal">
-        When plan check flags a revision, most companies wait on outside engineers.
-        Our team revises, recalculates and resubmits in-house. <strong>In days, not weeks.</strong>
-      </p>
     </div>
   </section>
 
@@ -234,6 +210,38 @@ $motif_url   = home_url('/wp-content/uploads/2026/08/Omega-Elementos-de-Apoyo-02
     </div>
   </section>
 
+  <!-- ============ S7B · PROCESS (fila horizontal sobre la banda de imagen) ============ -->
+  <section class="relative overflow-hidden bg-navy text-white">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('<?php echo esc_url($band_img); ?>');" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-navy/85" aria-hidden="true"></div>
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+         style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 60%;mask-size:auto 60%;"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
+      <div class="max-w-2xl reveal">
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Process</p>
+        <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight">Precision Starts Before Production</h2>
+      </div>
+
+      <!-- Bajo lg es una tira con scroll horizontal; en lg entran las 7 columnas -->
+      <ol class="reveal-stagger mt-14 flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory lg:grid lg:grid-cols-7 lg:overflow-visible lg:pb-0">
+        <?php
+        $steps = array('Engineering', '3D Modeling', 'Fabrication', 'Quality Control', 'Delivery', 'Installation', 'Inspection Support');
+        foreach ($steps as $i => $step) : ?>
+          <li class="w-64 shrink-0 snap-start border-t-2 border-white/25 pt-5 lg:w-auto lg:min-w-0">
+            <span class="font-display text-xs font-bold tracking-[0.18em] text-ember"><?php echo str_pad($i + 1, 2, '0', STR_PAD_LEFT); ?></span>
+            <p class="mt-3 font-display text-lg lg:text-base font-bold leading-snug [overflow-wrap:anywhere]"><?php echo esc_html($step); ?></p>
+          </li>
+        <?php endforeach; ?>
+      </ol>
+
+      <p class="mt-12 max-w-2xl text-base leading-relaxed text-white/80 reveal">
+        When plan check flags a revision, most companies wait on outside engineers.
+        Our team revises, recalculates and resubmits in-house. <strong>In days, not weeks.</strong>
+      </p>
+    </div>
+  </section>
+
   <!-- ============ S8 · FAQS ============ -->
   <section class="relative overflow-hidden bg-white">
     <div class="relative max-w-3xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
@@ -282,23 +290,24 @@ $motif_url   = home_url('/wp-content/uploads/2026/08/Omega-Elementos-de-Apoyo-02
   </section>
 
   <!-- ============ S9 · CONTACT (cierre) ============ -->
-  <section class="relative overflow-hidden bg-navy text-white">
+  <section class="relative overflow-hidden text-white"
+           style="background-image:linear-gradient(160deg, var(--color-rust) 0%, var(--color-ember) 55%, var(--color-rust) 100%);">
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
-         style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 60%;mask-size:auto 60%;"></div>
+         style="background-color:rgba(255,255,255,0.08);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 60%;mask-size:auto 60%;"></div>
     <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       <div class="lg:col-span-5 reveal">
-        <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Let's Engineer Your Next Project</p>
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-navy">Let's Engineer Your Next Project</p>
         <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight [overflow-wrap:anywhere]">
           Every Great Home Begins With Structural Confidence.
         </h2>
-        <p class="mt-6 text-base leading-relaxed text-white/75">
+        <p class="mt-6 text-base leading-relaxed text-white/85">
           Tell us about your project and our engineering team will follow up within one business day.
         </p>
-        <p class="mt-6 text-sm text-white/60">
+        <p class="mt-6 text-sm text-white/75">
           Prefer to talk it through?
-          <a href="tel:+17609867177" class="ml-1 font-display font-semibold text-white hover:text-ember transition-colors">(760) 986-7177</a>
+          <a href="tel:+17609867177" class="ml-1 font-display font-semibold text-white hover:text-navy transition-colors">(760) 986-7177</a>
         </p>
-        <p class="mt-2 text-xs text-white/45">No sales scripts. Your inquiry goes to the engineering team.</p>
+        <p class="mt-2 text-xs text-white/60">No sales scripts. Your inquiry goes to the engineering team.</p>
       </div>
       <div class="lg:col-span-6 lg:col-start-7 reveal">
         <div class="form-chip p-7 lg:p-9">
