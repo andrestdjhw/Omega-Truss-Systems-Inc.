@@ -7,15 +7,23 @@
 get_header();
 
 $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01-scaled.png');
-$hero_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg');
+$hero_img    = get_the_post_thumbnail_url(null, 'full');
+if (!$hero_img) {
+  $hero_img = home_url('/wp-content/uploads/2026/08/Project02.jpg'); // la Featured Image de WP la sobreescribe
+}
 ?>
 
 <main id="main">
 
   <!-- ============ S1 · HERO ============ -->
   <section class="relative overflow-hidden bg-navy text-white">
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('<?php echo esc_url($hero_img); ?>');" aria-hidden="true"></div>
-    <div class="absolute inset-0 bg-navy/75" aria-hidden="true"></div>
+    <?php if ($hero_img) : ?>
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('<?php echo esc_url($hero_img); ?>');" aria-hidden="true"></div>
+      <div class="absolute inset-0 bg-navy/75" aria-hidden="true"></div>
+    <?php else : ?>
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+           style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 55%;mask-size:auto 55%;"></div>
+    <?php endif; ?>
 
     <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-32">
       <div class="max-w-3xl reveal">
@@ -49,14 +57,23 @@ $hero_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg');
       <div class="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-5 reveal-stagger">
         <?php
         $markets = array(
-          array('San Diego County', "Multifamily development and wildfire-designated zones make San Diego one of the most code-intensive markets in the state. We engineer truss systems for fire-zone requirements and support projects through the county's demanding plan check environment."),
-          array('Orange County', "Luxury custom homes across Orange County demand structural partners who match the architecture's ambition and never cost the builder a schedule. Our engineered systems serve estate and custom residential projects throughout the county."),
-          array('Riverside County & Coachella Valley', "Home base. From Thousand Palms we serve the valley's residential, multifamily and commercial growth, with the shortest lead times in our service area."),
+          array('San Diego County', "Multifamily development and wildfire-designated zones make San Diego one of the most code-intensive markets in the state. We engineer truss systems for fire-zone requirements and support projects through the county's demanding plan check environment.", 'San+Diego+County,+CA'),
+          array('Orange County', "Luxury custom homes across Orange County demand structural partners who match the architecture's ambition and never cost the builder a schedule. Our engineered systems serve estate and custom residential projects throughout the county.", 'Orange+County,+CA'),
+          array('Riverside County & Coachella Valley', "Home base. From Thousand Palms we serve the valley's residential, multifamily and commercial growth, with the shortest lead times in our service area.", 'Coachella+Valley,+CA'),
         );
         foreach ($markets as $mk) : ?>
-          <div class="min-w-0 border border-navy/10 p-8">
-            <h3 class="font-display text-xl font-bold text-navy [overflow-wrap:anywhere]"><?php echo esc_html($mk[0]); ?></h3>
-            <p class="mt-4 text-sm lg:text-base leading-relaxed text-navy/70"><?php echo esc_html($mk[1]); ?></p>
+          <div class="min-w-0 flex flex-col overflow-hidden rounded-lg border border-navy/10 shadow-[0_10px_30px_rgba(14,26,47,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(14,26,47,0.24)]">
+            <iframe
+              src="https://www.google.com/maps?q=<?php echo esc_attr($mk[2]); ?>&z=9&output=embed"
+              title="<?php echo esc_attr($mk[0]); ?> — service area map"
+              class="block h-44 w-full border-b-2 border-ember"
+              style="border-top:0;border-left:0;border-right:0;"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="p-8">
+              <h3 class="font-display text-xl font-bold text-navy [overflow-wrap:anywhere]"><?php echo esc_html($mk[0]); ?></h3>
+              <p class="mt-4 text-sm lg:text-base leading-relaxed text-navy/70"><?php echo esc_html($mk[1]); ?></p>
+            </div>
           </div>
         <?php endforeach; ?>
       </div>
@@ -156,7 +173,14 @@ $hero_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg');
     </script>
   </section>
 
-  <!-- ============ S6 · CTA ============ -->
+  <!-- ============ S6 · CINTA VISUAL ============ -->
+  <section class="relative h-64 lg:h-96 overflow-hidden reveal">
+    <div class="absolute inset-0 bg-cover bg-center bg-scroll lg:bg-fixed"
+         style="background-image:url('<?php echo esc_url(home_url('/wp-content/uploads/2026/08/Location.png')); ?>');" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-navy/20" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ S7 · CTA ============ -->
   <section class="bg-white">
     <div class="max-w-5xl mx-auto px-4 lg:px-8 py-20 lg:py-24 text-center reveal">
       <h2 class="text-3xl lg:text-5xl font-bold leading-tight text-navy">Building in Southern California? Let's talk structure.</h2>

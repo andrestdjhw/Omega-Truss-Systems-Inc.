@@ -8,14 +8,18 @@
 get_header();
 
 $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01-scaled.png');
+$hero_img    = get_the_post_thumbnail_url(null, 'full');
+if (!$hero_img) {
+  $hero_img = home_url('/wp-content/uploads/2026/08/OmegaContactUs.jpg');
+}
 ?>
 
 <main id="main">
 
   <!-- ============ S1 · HERO ============ -->
   <section class="relative overflow-hidden bg-navy text-white">
-    <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
-         style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 55%;mask-size:auto 55%;"></div>
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('<?php echo esc_url($hero_img); ?>');" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-navy/75" aria-hidden="true"></div>
     <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
       <div class="max-w-3xl reveal">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Contact</p>
@@ -70,19 +74,16 @@ $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01
           </p>
         </div>
 
-        <!-- Redes sociales — TODO: URLs reales (por ahora #) -->
+        <!-- Redes sociales -->
         <div class="mt-6 flex items-center gap-2">
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-chip">
+          <a href="https://www.facebook.com/OmegaTrussSystems" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-chip">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.2h2.4l.4-2.8h-2.8V9.2c0-.8.2-1.4 1.4-1.4h1.5V5.3c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8V11H8.1v2.8h2.4V21h3z"/></svg>
           </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-chip">
+          <a href="https://www.instagram.com/omegatrusssystems" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-chip">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r="1" fill="currentColor" stroke="none"/></svg>
           </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="social-chip">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 8.6a6.3 6.3 0 0 1-3.8-1.3v6.6a5.6 5.6 0 1 1-5.6-5.6c.2 0 .5 0 .7.1v3a2.6 2.6 0 1 0 1.9 2.5V2.5h3a6.3 6.3 0 0 0 3.8 5v1.1z"/></svg>
-          </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Google Business Profile" class="social-chip">
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 9.5 5.3 5h13.4L20 9.5M4 9.5a2.3 2.3 0 0 0 4.5.6 2.3 2.3 0 0 0 4.6 0 2.3 2.3 0 0 0 4.6 0A2.3 2.3 0 0 0 20 9.5M5.5 12v7h13v-7M10 19v-4.5h4V19"/></svg>
+          <a href="https://www.linkedin.com/company/omegatrusssystems/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-chip">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 8.5v11H3.56v-11h3.38zM5.25 3.5a1.97 1.97 0 1 1 0 3.94 1.97 1.97 0 0 1 0-3.94zM20.5 13.57v5.93h-3.37v-5.5c0-1.38-.5-2.32-1.73-2.32-.94 0-1.5.63-1.75 1.24-.09.22-.11.52-.11.83v5.75h-3.37s.04-9.33 0-10.3h3.37v1.46c.45-.69 1.25-1.68 3.04-1.68 2.22 0 3.92 1.45 3.92 4.59z"/></svg>
           </a>
         </div>
 

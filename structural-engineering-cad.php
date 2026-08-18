@@ -114,10 +114,11 @@ if (!$hero_img) {
     </div>
   </section>
 
-  <!-- ============ S5 · HOW IT WORKS ============ -->
+  <!-- ============ S5 · HOW IT WORKS (cinta CAD) ============ -->
   <section class="relative overflow-hidden bg-navy text-white">
-    <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
-         style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 60%;mask-size:auto 60%;"></div>
+    <div class="absolute inset-0 bg-cover bg-center bg-scroll lg:bg-fixed"
+         style="background-image:url('<?php echo esc_url(home_url('/wp-content/uploads/2026/08/CADCinta-scaled.webp')); ?>');" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-navy/80" aria-hidden="true"></div>
     <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-24">
       <h2 class="text-3xl lg:text-4xl font-bold leading-tight reveal">How It Works</h2>
       <ol class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-10 reveal-stagger">
