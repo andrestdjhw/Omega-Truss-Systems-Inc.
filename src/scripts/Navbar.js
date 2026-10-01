@@ -33,8 +33,6 @@ const SERVICES = [
   { label: "Floor Trusses", href: "/floor-trusses/", desc: "Open-web systems that simplify MEP and protect schedules." },
   { label: "Structural Engineering & CAD", href: "/structural-engineering-cad/", desc: "Founder-led engineering, Title 24-aligned, plan-check ready." },
   { label: "Fabrication & Quality Control", href: "/fabrication-quality-control/", desc: "Precision fabrication with a 2.4% internal defect rate." },
-  { label: "Installation", href: "/installation/", desc: "Set by our own cross-trained crews. One accountable team." },
-  { label: "Roof Sheathing & Project Support", href: "/roof-sheathing-project-support/", desc: "Bundled scope through inspection sign-off." },
 ]
 
 // Contact no va en el menú: el CTA "Schedule a Consultation" cumple ese rol

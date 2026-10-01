@@ -32,7 +32,7 @@ if (!$hero_img) {
           Built In The Desert. Trusted Across Southern California.
         </h1>
         <p class="mt-6 max-w-2xl text-base lg:text-lg leading-relaxed text-white/80">
-          From our facility in Thousand Palms, we engineer, fabricate and install truss
+          From our facility in Thousand Palms, we engineer, fabricate and deliver truss
           systems for the region's most demanding markets.
         </p>
         <div class="mt-10">
@@ -141,8 +141,8 @@ if (!$hero_img) {
         $faqs = array(
           array('Where is Omega based?', 'Our headquarters and fabrication facility are in Thousand Palms, California, in the Coachella Valley.'),
           array('Do you take projects in San Diego and Orange County?', 'Yes. San Diego and Orange County are primary markets for our luxury residential and multifamily work.'),
-          array('Can you deliver and install anywhere in your service area?', 'Yes. Our crews install everything we fabricate, and deliveries are scheduled to your framing sequence across Southern California.'),
-          array('Do you work in wildfire-designated zones?', 'Yes. Fire-zone engineering is a core capability, from system design through inspection support.'),
+          array('Can you deliver anywhere in your service area?', 'Yes. Deliveries are scheduled to your framing sequence across Southern California.'),
+          array('Do you work in wildfire-designated zones?', 'Yes. Fire-zone engineering is a core capability, from system design through plan check.'),
         );
         foreach ($faqs as $faq) : ?>
           <details class="faq-item border-b border-navy/10 py-5">

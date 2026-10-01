@@ -27,10 +27,10 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
       <div class="max-w-3xl reveal">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Structural Solutions</p>
         <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]">
-          One Integrated Scope. From CAD Design To Inspection Support.
+          One Integrated Scope. From CAD Design To Delivery.
         </h1>
         <p class="mt-6 max-w-2xl text-base lg:text-lg leading-relaxed text-white/80">
-          Engineered for California's strictest codes — designed, fabricated and installed
+          Engineered for California's strictest codes — designed, fabricated and delivered
           by one accountable team.
         </p>
         <div class="mt-10">
@@ -47,15 +47,13 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
   <!-- ============ S2 · GRID DE SERVICIOS ============ -->
   <section class="bg-white">
     <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 reveal-stagger">
         <?php
         $services = array(
           array('Custom Roof Trusses', 'Engineered-to-order roof systems for complex architecture: long spans, vaulted geometries, hillside and fire-zone conditions.', '/custom-roof-trusses/', '/wp-content/uploads/2026/08/CustomRoofTrusses-scaled.jpg'),
           array('Floor Trusses', 'Open-web floor systems that simplify MEP routing and keep multifamily schedules moving.', '/floor-trusses/', '/wp-content/uploads/2026/08/FloorTrusses-scaled.jpg'),
           array('Structural Engineering & CAD', 'Founder-led engineering resolves the structural challenges most fabricators send back to the architect — with Title 24-aligned drawings ready for plan check.', '/structural-engineering-cad/', '/wp-content/uploads/2026/08/StructuralEngineeringCAD-scaled.jpg'),
           array('Fabrication & Quality Control', 'Precision in-house fabrication with an internal QC process that holds our defect rate to 2.4%, well below the 6.8% industry average.', '/fabrication-quality-control/', '/wp-content/uploads/2026/08/FabricationQA-scaled.jpg'),
-          array('Installation', 'Our own crews install what we engineer. One standard, one accountable team, no subcontractor roulette.', '/installation/', '/wp-content/uploads/2026/08/Installation-scaled.jpg'),
-          array('Roof Sheathing & Project Support', 'Bundled sheathing, project coordination and inspection support — one contract, one point of accountability, through sign-off.', '/roof-sheathing-project-support/', '/wp-content/uploads/2026/08/RoofSheating-scaled.jpg'),
         );
         foreach ($services as $svc) : ?>
           <a href="<?php echo esc_url(home_url($svc[2])); ?>"
@@ -83,9 +81,9 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
   <section class="bg-mist">
     <div class="max-w-7xl mx-auto px-4 lg:px-8 py-16 lg:py-20">
       <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember reveal">One Team, End To End</p>
-      <ol class="mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-8 reveal-stagger">
+      <ol class="mt-8 grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-8 reveal-stagger">
         <?php
-        $steps = array('Engineering', '3D Modeling', 'Fabrication', 'Quality Control', 'Delivery', 'Installation', 'Inspection Support');
+        $steps = array('Engineering', '3D Modeling', 'Fabrication', 'Quality Control', 'Delivery');
         foreach ($steps as $i => $step) : ?>
           <li class="border-t-2 border-navy/15 pt-4 min-w-0">
             <span class="font-display text-xs font-bold tracking-[0.12em] text-ember"><?php echo str_pad($i + 1, 2, '0', STR_PAD_LEFT); ?></span>

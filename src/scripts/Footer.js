@@ -12,8 +12,6 @@ const SERVICES = [
   { label: "Floor Trusses", href: "/floor-trusses/" },
   { label: "Structural Engineering & CAD", href: "/structural-engineering-cad/" },
   { label: "Fabrication & Quality Control", href: "/fabrication-quality-control/" },
-  { label: "Installation", href: "/installation/" },
-  { label: "Roof Sheathing & Project Support", href: "/roof-sheathing-project-support/" },
 ]
 
 const COMPANY = [
@@ -90,8 +88,8 @@ export default function Footer() {
             </a>
             <p className="mt-6 max-w-sm text-[14px] leading-relaxed text-white/70">
               Custom engineered truss systems for Southern California's most demanding
-              residential, multifamily and commercial projects. Designed, fabricated
-              and installed entirely in-house.
+              residential, multifamily and commercial projects. Engineered, fabricated
+              and delivered by one accountable team.
             </p>
 
             {/* Redes sociales */}

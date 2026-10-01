@@ -79,3 +79,12 @@ function omega_contact_submit() {
   }
   wp_send_json_error(array('message' => 'mail_failed'));
 }
+// Servicios retirados (Installation y Roof Sheathing & Project Support no son
+// parte del scope de Omega): redirige las URLs antiguas a Structural Solutions.
+function omega_redirect_retired_services() {
+  if (is_page(array('installation', 'roof-sheathing-project-support'))) {
+    wp_safe_redirect(home_url('/structural-solutions/'), 301);
+    exit;
+  }
+}
+add_action('template_redirect', 'omega_redirect_retired_services');

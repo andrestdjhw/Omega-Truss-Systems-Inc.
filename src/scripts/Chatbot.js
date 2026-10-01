@@ -28,13 +28,13 @@ const ANSWERS = {
   consult:
     "Great — the fastest way is a project consultation. Share your project location, type and target timeline, and our engineering team will follow up within one business day.",
   fire:
-    "Yes — fire-zone work is core for us. We engineer truss systems for wildfire-designated zones and California's strict code environment, and we support the project through plan check and inspection.",
+    "Yes — fire-zone work is core for us. We engineer truss systems for wildfire-designated zones and California's strict code environment, and we support the project through plan check.",
   lead:
     "Lead times depend on scope, but our record is a 98% on-time delivery rate versus an industry average of about 82%. Share your target schedule and we'll confirm feasibility.",
   eng:
-    "Our engineering is fully in-house. The same team that designs your system fabricates and installs it, and plan-check revisions are typically resolved in days, not weeks.",
-  install:
-    "Installation is done by our own cross-trained crews — no subcontractors. The team that engineered your system is the team that sets it on site.",
+    "Our engineering is fully in-house. The same team that designs your system fabricates it in our own facility, and plan-check revisions are typically resolved in days, not weeks.",
+  scope:
+    "Omega specializes in engineering, manufacturing and delivering custom truss systems. Every package is delivered labeled and on schedule, ready for your framing contractor.",
   pricing:
     "Every system is engineered to order, so pricing is project-specific. Send us your plans or project details and our engineering team will get back to you within one business day.",
   fallback:
@@ -45,7 +45,7 @@ const ANSWERS = {
 const KEYWORDS = [
   { re: /(fire|wildfire|whz)/i, id: "fire" },
   { re: /(lead\s?time|timeline|schedule|turnaround|how\s+long|when)/i, id: "lead" },
-  { re: /(install|crew|set)/i, id: "install" },
+  { re: /(install|crew|sheathing|service|scope)/i, id: "scope" },
   { re: /(price|pricing|cost|quote|estimate|budget)/i, id: "pricing" },
   { re: /(engineer|title\s?24|code|plan\s?check|revision|cad|design)/i, id: "eng" },
   { re: /(consult|contact|talk|call|meet)/i, id: "consult" },

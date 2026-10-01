@@ -37,8 +37,8 @@ $hero_img    = home_url('/wp-content/uploads/2026/08/About.png');
         <p class="text-base lg:text-lg leading-relaxed text-navy/75">
           Omega was founded around one belief: engineering should accelerate construction,
           not slow it down. With decades of structural expertise, our team brings engineering,
-          fabrication and installation together under one roof, giving builders one accountable
-          partner from concept to completion.
+          fabrication and delivery together under one roof, giving builders one accountable
+          partner from concept to a delivered truss package.
         </p>
         <p class="text-base lg:text-lg leading-relaxed text-navy/75">
           On high-value projects, the cost of a structural mistake is never just the fix.
@@ -78,9 +78,9 @@ $hero_img    = home_url('/wp-content/uploads/2026/08/About.png');
       </div>
       <div class="lg:col-span-5 lg:order-1 reveal">
         <p class="text-base lg:text-lg leading-relaxed text-navy/75">
-          No outsourced engineering. No subcontracted installation. No gap between the drawing,
-          the shop and the field. When you call Omega, the team that engineered your system is
-          the team that fabricates it and stands under it on site.
+          No outsourced engineering. No gap between the drawing, the shop and the delivery.
+          When you call Omega, the team that engineered your system is the team that
+          fabricates it and delivers it to your site, ready for your framing sequence.
         </p>
       </div>
     </div>

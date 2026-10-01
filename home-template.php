@@ -42,7 +42,7 @@ $band_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg'); // fondo p
           residential, multifamily and commercial construction projects.
         </p>
         <p class="mt-4 font-display text-sm font-semibold uppercase tracking-[0.22em] text-ember">
-          Designed. Fabricated. Installed. Entirely in-house.
+          Engineered. Fabricated. Delivered.
         </p>
         <!-- Grid de columnas iguales: inline-grid encoge al contenido y
              auto-cols-fr reparte ese ancho en partes iguales, así ambos
@@ -112,7 +112,7 @@ $band_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg'); // fondo p
           Every project has a critical path. One engineering mistake can delay inspections,
           push schedules, increase labor costs and damage client relationships. Omega exists
           to eliminate those risks through fully integrated engineering, precision fabrication
-          and professional installation.
+          and reliable delivery.
         </p>
       </div>
     </div>
@@ -161,15 +161,13 @@ $band_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg'); // fondo p
         </a>
       </div>
 
-      <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
+      <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal-stagger">
         <?php
         $services = array(
           array('Custom Roof Trusses', 'Engineered-to-order roof systems for complex architecture, long spans and code-critical conditions.', '/custom-roof-trusses/', '/wp-content/uploads/2026/08/CustomRoofTrusses-scaled.jpg'),
           array('Floor Trusses', 'Open-web floor systems that simplify MEP routing and keep multifamily schedules moving.', '/floor-trusses/', '/wp-content/uploads/2026/08/FloorTrusses-scaled.jpg'),
           array('Structural Engineering & CAD', 'Founder-led engineering and fully detailed, Title 24-aligned drawings, ready for plan check.', '/structural-engineering-cad/', '/wp-content/uploads/2026/08/StructuralEngineeringCAD-scaled.jpg'),
           array('Fabrication & Quality Control', 'Precision in-house fabrication with an internal QC process that holds defects to 2.4%.', '/fabrication-quality-control/', '/wp-content/uploads/2026/08/FabricationQA-scaled.jpg'),
-          array('Installation', 'Our own crews install what we engineer. One standard, one accountable team.', '/installation/', '/wp-content/uploads/2026/08/Installation-scaled.jpg'),
-          array('Roof Sheathing & Project Support', 'Bundled sheathing, project coordination and inspection support under one contract.', '/roof-sheathing-project-support/', '/wp-content/uploads/2026/08/RoofSheating-scaled.jpg'),
         );
         foreach ($services as $svc) : ?>
           <a href="<?php echo esc_url(home_url($svc[2])); ?>"
@@ -223,10 +221,10 @@ $band_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg'); // fondo p
         <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight">Precision Starts Before Production</h2>
       </div>
 
-      <!-- Bajo lg es una tira con scroll horizontal; en lg entran las 7 columnas -->
-      <ol class="reveal-stagger mt-14 flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory lg:grid lg:grid-cols-7 lg:overflow-visible lg:pb-0">
+      <!-- Bajo lg es una tira con scroll horizontal; en lg entran las 5 columnas -->
+      <ol class="reveal-stagger mt-14 flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory lg:grid lg:grid-cols-5 lg:overflow-visible lg:pb-0">
         <?php
-        $steps = array('Engineering', '3D Modeling', 'Fabrication', 'Quality Control', 'Delivery', 'Installation', 'Inspection Support');
+        $steps = array('Engineering', '3D Modeling', 'Fabrication', 'Quality Control', 'Delivery');
         foreach ($steps as $i => $step) : ?>
           <li class="w-64 shrink-0 snap-start border-t-2 border-white/25 pt-5 lg:w-auto lg:min-w-0">
             <span class="font-display text-xs font-bold tracking-[0.18em] text-ember"><?php echo str_pad($i + 1, 2, '0', STR_PAD_LEFT); ?></span>
@@ -253,11 +251,11 @@ $band_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg'); // fondo p
       <div class="mt-10 reveal-stagger">
         <?php
         $faqs = array(
-          array('Do you handle engineering in-house or outsource it?', "Everything is in-house. The same team that engineers your truss system fabricates it and installs it. That's how revisions get resolved in days instead of weeks."),
+          array('Do you handle engineering in-house or outsource it?', "Everything is in-house. The same team that engineers your truss system fabricates it in our own facility. That's how revisions get resolved in days instead of weeks."),
           array('What types of projects do you take on?', 'Luxury residential, estate homes, hillside and coastal construction, fire-zone builds, multifamily and mixed-use developments, and select commercial and public projects across Southern California.'),
-          array('Can you work in wildfire-designated zones?', "Yes. We engineer truss systems for fire-zone requirements and California's strict code environment, and we support the project through plan check and inspection."),
+          array('Can you work in wildfire-designated zones?', "Yes. We engineer truss systems for fire-zone requirements and California's strict code environment, and we support the project through plan check."),
           array('What happens if plan check requires a revision?', "Our engineering team revises, recalculates and resubmits in-house, typically within days. Your schedule doesn't wait on a third-party engineer."),
-          array('Do you install the trusses you fabricate?', 'Yes. Our own crews handle installation. One accountable partner from CAD design to final inspection support.'),
+          array('What does Omega handle on a project?', 'We specialize in engineering, manufacturing and delivering custom truss systems. One accountable partner from CAD design to the delivered truss package.'),
           array('How early should we involve Omega in a project?', 'As early as possible. When we review plans during design, we can flag structural issues before they become expensive, and protect your critical path from day one.'),
         );
         foreach ($faqs as $faq) : ?>
