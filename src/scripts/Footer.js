@@ -7,6 +7,11 @@
 import React from "react"
 import { PHONE, EMAIL, ADDRESS, SOCIALS, SocialIcon } from "./brand"
 
+const LEGAL = [
+  { label: "Privacy Policy", href: "/privacy-policy/" },
+  { label: "Terms and Conditions", href: "/terms-and-conditions/" },
+]
+
 const SERVICES = [
   { label: "Custom Roof Trusses", href: "/custom-roof-trusses/" },
   { label: "Floor Trusses", href: "/floor-trusses/" },
@@ -154,9 +159,16 @@ export default function Footer() {
       {/* Barra legal */}
       <div className="relative border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <p className="text-[12px] text-white/50">
-            © {year} Omega Truss Systems Inc. All rights reserved.
-          </p>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+            <p className="text-[12px] text-white/50">
+              © {year} Omega Truss Systems Inc. All rights reserved.
+            </p>
+            <nav aria-label="Legal" className="flex items-center gap-4">
+              {LEGAL.map((l) => (
+                <a key={l.href} href={l.href} className="text-[12px] text-white/70 hover:text-ember transition-colors">{l.label}</a>
+              ))}
+            </nav>
+          </div>
           <p className="text-[12px] text-white/50">
             Site by{" "}
             <a

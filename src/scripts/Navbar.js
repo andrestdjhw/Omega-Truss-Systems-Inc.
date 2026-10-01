@@ -252,8 +252,10 @@ export default function Navbar() {
   const linkBase =
     "text-[13px] font-medium uppercase tracking-[0.14em] text-white/85 hover:text-white transition-colors whitespace-nowrap"
   const currentMark = "text-white border-b border-white pb-0.5"
+  // OJO: no combinar topLink con "hidden" — en Tailwind v4 su inline-flex le gana.
+  // Para esconder algo en móvil, esconder el wrapper o un <span> interno.
   const topLink =
-    "inline-flex items-center gap-1.5 text-[12px] text-white/75 hover:text-white transition-colors"
+    "inline-flex items-center gap-1.5 text-[11px] sm:text-[12px] text-white/75 hover:text-white transition-colors"
 
   return (
     <header
@@ -272,28 +274,28 @@ export default function Navbar() {
           topbarHidden ? "max-h-0" : "max-h-12"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 h-10 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4">
-          {/* Izquierda: teléfono + email */}
-          <div className="flex items-center gap-5 min-w-0">
+        {/* Móvil: flex con extremos (sin columna central vacía que coma espacio).
+            Desde lg: 3 columnas con la dirección centrada. */}
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 h-10 flex justify-between lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 lg:gap-4">
+          {/* Izquierda: teléfono + email (en móvil sin íconos para que quepan ambos textos) */}
+          <div className="flex items-center gap-3 sm:gap-5 min-w-0">
             <a href={`tel:${PHONE.replace(/[^0-9+]/g, "")}`} className={topLink}>
-              <PhoneIcon />
+              <span className="hidden sm:inline-flex"><PhoneIcon /></span>
               <span className="whitespace-nowrap">{PHONE}</span>
             </a>
-            <a href={`mailto:${EMAIL}`} className={`${topLink} hidden xl:inline-flex min-w-0`}>
-              <MailIcon />
+            <a href={`mailto:${EMAIL}`} className={`${topLink} min-w-0`}>
+              <span className="hidden sm:inline-flex"><MailIcon /></span>
               <span className="truncate">{EMAIL}</span>
             </a>
           </div>
 
-          {/* Centro: geotag → Google Maps.
-              El wrapper va siempre presente para no romper las 3 columnas;
-              lo que se esconde es el <a> interno. */}
-          <div className="flex justify-center min-w-0">
+          {/* Centro: geotag → Google Maps (solo desde lg) */}
+          <div className="hidden lg:flex justify-center min-w-0">
             <a
               href={MAPS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${topLink} hidden lg:inline-flex`}
+              className={topLink}
             >
               <PinIcon />
               <span className="whitespace-nowrap">{ADDRESS}</span>
@@ -301,7 +303,7 @@ export default function Navbar() {
           </div>
 
           {/* Derecha: redes sociales */}
-          <div className="flex items-center justify-end gap-2">
+          <div className="flex shrink-0 items-center justify-end gap-1 sm:gap-2">
             {SOCIALS.map((s) => (
               <a
                 key={s.id}
@@ -309,7 +311,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="social-chip"
+                className="social-chip social-chip--top"
               >
                 <SocialIcon id={s.id} />
               </a>

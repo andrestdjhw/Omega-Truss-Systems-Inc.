@@ -5,6 +5,7 @@ import Footer from "./scripts/Footer"
 // import ContactForm from "./scripts/ContactForm" // pendiente de build
 import Chatbot from "./scripts/Chatbot"
 import ContactForm from "./scripts/ContactForm"         // pendiente de build
+import initMotion from "./scripts/Motion"
 
 function mount(selector, Component) {
   const el = document.querySelector(selector)
@@ -20,3 +21,5 @@ document.querySelectorAll(".js-contact-form").forEach((el) => {
   )
 })
 mount("#react-chatbot", Chatbot)
+// Micro-interacciones globales sobre el markup PHP (el script carga en el footer: el DOM ya existe)
+initMotion()

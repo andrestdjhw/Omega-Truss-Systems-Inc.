@@ -16,8 +16,13 @@ const ROLES = ["Builder", "Architect", "General Contractor", "Developer", "Engin
 const TYPES = ["Luxury Residential", "Multifamily", "Commercial", "Public", "Other"]
 
 const labelCls = "block font-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70"
-const inputCls =
+// Celda de campo: si una etiqueta llegara a ocupar 2 líneas, el input se
+// alinea abajo y la fila sigue pareja
+const fieldCls = "flex flex-col justify-end"
+const fieldBase =
   "mt-2 block w-full rounded-md border border-white/15 bg-white/[0.07] px-3.5 py-2.5 text-[14px] text-white placeholder:text-white/35 outline-none focus:border-royal focus:bg-white/10 transition-colors [&>option]:text-navy"
+// Inputs y selects con la misma altura fija; la textarea usa fieldBase
+const inputCls = `${fieldBase} h-11`
 
 function CtaPoints() {
   return (
@@ -73,12 +78,21 @@ export default function ContactForm({ ajaxUrl = "/wp-admin/admin-ajax.php", nonc
     <button
       type="submit"
       disabled={status === "sending"}
-      className={`btn-cta btn-cta--ember [--fold-bg:#ffffff] disabled:opacity-60 disabled:pointer-events-none ${compact ? "w-full" : ""}`}
+      className="btn-cta btn-cta--ember w-full [--fold-bg:#ffffff] disabled:opacity-60 disabled:pointer-events-none"
     >
       <CtaPoints />
       <span className="fold" aria-hidden="true"></span>
       <span className="inner">{status === "sending" ? "Sending…" : compact ? "Request Consultation" : "Schedule a Project Consultation"}</span>
     </button>
+  )
+
+  const consent = (
+    <p className="mt-3 text-[12px] leading-snug text-white/50">
+      By submitting, you agree to our{" "}
+      <a href="/privacy-policy/" className="text-white/75 underline-offset-2 hover:text-white hover:underline">Privacy Policy</a>
+      {" "}and{" "}
+      <a href="/terms-and-conditions/" className="text-white/75 underline-offset-2 hover:text-white hover:underline">Terms</a>.
+    </p>
   )
 
   const errorMsg = status === "error" && (
@@ -106,7 +120,7 @@ export default function ContactForm({ ajaxUrl = "/wp-admin/admin-ajax.php", nonc
           </div>
           <div>
             <label htmlFor="cfc-type" className={labelCls}>Project type</label>
-            <select id="cfc-type" value={form.type} onChange={set("type")} className={inputCls}>
+            <select id="cfc-type" value={form.type} onChange={set("type")} className={`${inputCls} form-select`}>
               <option value="">Select…</option>
               {TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
@@ -121,6 +135,7 @@ export default function ContactForm({ ajaxUrl = "/wp-admin/admin-ajax.php", nonc
 
         {errorMsg}
         <div className="mt-5">{submitBtn}</div>
+        {consent}
       </form>
     )
   }
@@ -129,47 +144,47 @@ export default function ContactForm({ ajaxUrl = "/wp-admin/admin-ajax.php", nonc
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-6">
-        <div>
+        <div className={fieldCls}>
           <label htmlFor="cf-name" className={labelCls}>Name *</label>
           <input id="cf-name" type="text" required value={form.name} onChange={set("name")} className={inputCls} autoComplete="name" />
         </div>
-        <div>
+        <div className={fieldCls}>
           <label htmlFor="cf-company" className={labelCls}>Company</label>
           <input id="cf-company" type="text" value={form.company} onChange={set("company")} className={inputCls} autoComplete="organization" />
         </div>
-        <div>
+        <div className={fieldCls}>
           <label htmlFor="cf-role" className={labelCls}>Role</label>
-          <select id="cf-role" value={form.role} onChange={set("role")} className={inputCls}>
+          <select id="cf-role" value={form.role} onChange={set("role")} className={`${inputCls} form-select`}>
             <option value="">Select…</option>
             {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
           </select>
         </div>
-        <div>
+        <div className={fieldCls}>
           <label htmlFor="cf-email" className={labelCls}>Email *</label>
           <input id="cf-email" type="email" required value={form.email} onChange={set("email")} className={inputCls} autoComplete="email" />
         </div>
-        <div>
+        <div className={fieldCls}>
           <label htmlFor="cf-phone" className={labelCls}>Phone</label>
           <input id="cf-phone" type="tel" value={form.phone} onChange={set("phone")} className={inputCls} autoComplete="tel" />
         </div>
-        <div>
-          <label htmlFor="cf-location" className={labelCls}>Project location (city / county)</label>
-          <input id="cf-location" type="text" value={form.location} onChange={set("location")} className={inputCls} />
+        <div className={fieldCls}>
+          <label htmlFor="cf-location" className={labelCls}>Project location</label>
+          <input id="cf-location" type="text" value={form.location} onChange={set("location")} className={inputCls} placeholder="City / County" />
         </div>
-        <div>
+        <div className={fieldCls}>
           <label htmlFor="cf-type" className={labelCls}>Project type</label>
-          <select id="cf-type" value={form.type} onChange={set("type")} className={inputCls}>
+          <select id="cf-type" value={form.type} onChange={set("type")} className={`${inputCls} form-select`}>
             <option value="">Select…</option>
             {TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
           </select>
         </div>
-        <div>
+        <div className={fieldCls}>
           <label htmlFor="cf-timeline" className={labelCls}>Target timeline</label>
           <input id="cf-timeline" type="text" value={form.timeline} onChange={set("timeline")} className={inputCls} placeholder="e.g. Framing in Q1 2027" />
         </div>
         <div className="sm:col-span-2">
           <label htmlFor="cf-message" className={labelCls}>Message / link to plans</label>
-          <textarea id="cf-message" rows="5" value={form.message} onChange={set("message")} className={inputCls}></textarea>
+          <textarea id="cf-message" rows="5" value={form.message} onChange={set("message")} className={`${fieldBase} resize-y`}></textarea>
         </div>
 
         {/* Honeypot */}
@@ -181,6 +196,7 @@ export default function ContactForm({ ajaxUrl = "/wp-admin/admin-ajax.php", nonc
 
       {errorMsg}
       <div className="mt-8">{submitBtn}</div>
+      {consent}
     </form>
   )
 }

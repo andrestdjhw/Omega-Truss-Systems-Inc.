@@ -59,7 +59,7 @@ if (!$hero_img) {
           <!-- TODO NAP: email real, dirección exacta y horario -->
           <div class="mt-5 space-y-2 text-sm text-white/75">
             <p><a href="tel:+17609867177" class="hover:text-ember transition-colors">(760) 986-7177</a></p>
-            <p><a href="mailto:info@omegatruss.com" class="hover:text-ember transition-colors">info@omegatruss.com</a></p>
+            <p><a href="mailto:info@omegaequipmentpe.com" class="hover:text-ember transition-colors">info@omegaequipmentpe.com</a></p>
             <p>Thousand Palms, CA</p>
             <p class="text-white/50">Office hours: [pending]</p>
           </div>
@@ -111,9 +111,11 @@ if (!$hero_img) {
   if ('IntersectionObserver' in window && !reduce) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); ro.unobserve(e.target); }
+        // Se reinicia al salir por completo del viewport: vuelve a animar en cada pasada
+        if (e.isIntersecting && e.intersectionRatio >= 0.1) e.target.classList.add('is-visible');
+        else if (!e.isIntersecting) e.target.classList.remove('is-visible');
       });
-    }, { threshold: 0.12 });
+    }, { threshold: [0, 0.12] });
     revealEls.forEach(function (el) { ro.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });

@@ -349,9 +349,11 @@ $band_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg'); // fondo p
   if ('IntersectionObserver' in window && !reduce) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); ro.unobserve(e.target); }
+        // Se reinicia al salir por completo del viewport: vuelve a animar en cada pasada
+        if (e.isIntersecting && e.intersectionRatio >= 0.1) e.target.classList.add('is-visible');
+        else if (!e.isIntersecting) e.target.classList.remove('is-visible');
       });
-    }, { threshold: 0.12 });
+    }, { threshold: [0, 0.12] });
     revealEls.forEach(function (el) { ro.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });
@@ -363,7 +365,9 @@ $band_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg'); // fondo p
     var target = parseFloat(el.getAttribute('data-count'));
     var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
     var dur = 1400, start = null;
+    var run = el._run = (el._run || 0) + 1; // cancela una animación previa si se re-dispara
     function tick(ts) {
+      if (el._run !== run) return;
       if (!start) start = ts;
       var p = Math.min((ts - start) / dur, 1);
       var eased = 1 - Math.pow(1 - p, 3);
@@ -375,9 +379,10 @@ $band_img    = home_url('/wp-content/uploads/2026/08/Project04.jpg'); // fondo p
   if ('IntersectionObserver' in window && !reduce) {
     var co = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { animate(e.target); co.unobserve(e.target); }
+        if (e.isIntersecting && e.intersectionRatio >= 0.35) animate(e.target);
+        else if (!e.isIntersecting) { e.target._run = (e.target._run || 0) + 1; e.target.textContent = '0'; }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: [0, 0.4] });
     counters.forEach(function (el) { co.observe(el); });
   } else {
     counters.forEach(function (el) {

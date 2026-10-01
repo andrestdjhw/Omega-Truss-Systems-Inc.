@@ -107,7 +107,7 @@ if (!$hero_img) {
         <div class="mt-6 space-y-1.5 text-sm text-navy/70">
           <p>[Full address pending]</p>
           <p><a href="tel:+17609867177" class="hover:text-ember transition-colors">(760) 986-7177</a></p>
-          <p>info@omegatruss.com</p>
+          <p>info@omegaequipmentpe.com</p>
         </div>
         <a href="https://www.google.com/maps/search/?api=1&query=Omega+Truss+Systems+Thousand+Palms+CA"
            target="_blank" rel="noopener noreferrer"
@@ -203,9 +203,11 @@ if (!$hero_img) {
   if ('IntersectionObserver' in window && !reduce) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); ro.unobserve(e.target); }
+        // Se reinicia al salir por completo del viewport: vuelve a animar en cada pasada
+        if (e.isIntersecting && e.intersectionRatio >= 0.1) e.target.classList.add('is-visible');
+        else if (!e.isIntersecting) e.target.classList.remove('is-visible');
       });
-    }, { threshold: 0.12 });
+    }, { threshold: [0, 0.12] });
     revealEls.forEach(function (el) { ro.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });

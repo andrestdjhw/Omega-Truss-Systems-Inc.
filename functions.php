@@ -53,8 +53,8 @@ function omega_contact_submit() {
     wp_send_json_error(array('message' => 'invalid'));
   }
 
-  // TODO NAP: cambiar al correo real del cliente cuando lo confirme
-  $to = get_option('admin_email');
+  // Destinatario fijo del formulario (no depende del admin_email de WordPress)
+  $to = 'info@omegaequipmentpe.com';
 
   $subject = 'New project consultation — ' . $name . ($company ? ' (' . $company . ')' : '');
   $lines = array(

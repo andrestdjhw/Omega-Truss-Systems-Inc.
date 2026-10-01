@@ -189,9 +189,11 @@ if (!$hero_img) {
   if ('IntersectionObserver' in window && !reduce) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); ro.unobserve(e.target); }
+        // Se reinicia al salir por completo del viewport: vuelve a animar en cada pasada
+        if (e.isIntersecting && e.intersectionRatio >= 0.1) e.target.classList.add('is-visible');
+        else if (!e.isIntersecting) e.target.classList.remove('is-visible');
       });
-    }, { threshold: 0.12 });
+    }, { threshold: [0, 0.12] });
     revealEls.forEach(function (el) { ro.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });
