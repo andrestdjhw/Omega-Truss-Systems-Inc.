@@ -11,7 +11,7 @@
 */
 
 $company = 'Omega Truss Systems Inc.';
-$email   = 'info@omegaequipmentpe.com';
+$email   = 'info@omegatrusssystems.com';
 $phone   = '(760) 986-7177';
 $contact = home_url('/contact/');
 $terms   = home_url('/terms-and-conditions/');

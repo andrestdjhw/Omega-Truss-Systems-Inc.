@@ -7,7 +7,7 @@ import React from "react"
 
 // ===== NAP — TODO: reemplazar con datos reales antes de producción =====
 export const PHONE = "(760) 986-7177"
-export const EMAIL = "info@omegaequipmentpe.com"
+export const EMAIL = "info@omegatrusssystems.com"
 export const ADDRESS = "Thousand Palms, CA"
 export const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Omega+Truss+Systems+Thousand+Palms+CA" // TODO: dirección exacta

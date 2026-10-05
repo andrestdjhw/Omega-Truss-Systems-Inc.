@@ -59,7 +59,7 @@ if (!$hero_img) {
           <!-- TODO NAP: email real, dirección exacta y horario -->
           <div class="mt-5 space-y-2 text-sm text-white/75">
             <p><a href="tel:+17609867177" class="hover:text-ember transition-colors">(760) 986-7177</a></p>
-            <p><a href="mailto:info@omegaequipmentpe.com" class="hover:text-ember transition-colors">info@omegaequipmentpe.com</a></p>
+            <p><a href="mailto:info@omegatrusssystems.com" class="hover:text-ember transition-colors">info@omegatrusssystems.com</a></p>
             <p>Thousand Palms, CA</p>
             <p class="text-white/50">Office hours: [pending]</p>
           </div>

@@ -54,7 +54,7 @@ function omega_contact_submit() {
   }
 
   // Destinatario fijo del formulario (no depende del admin_email de WordPress)
-  $to = 'info@omegaequipmentpe.com';
+  $to = 'info@omegatrusssystems.com';
 
   $subject = 'New project consultation — ' . $name . ($company ? ' (' . $company . ')' : '');
   $lines = array(

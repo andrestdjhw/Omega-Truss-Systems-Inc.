@@ -107,7 +107,7 @@ if (!$hero_img) {
         <div class="mt-6 space-y-1.5 text-sm text-navy/70">
           <p>[Full address pending]</p>
           <p><a href="tel:+17609867177" class="hover:text-ember transition-colors">(760) 986-7177</a></p>
-          <p>info@omegaequipmentpe.com</p>
+          <p>info@omegatrusssystems.com</p>
         </div>
         <a href="https://www.google.com/maps/search/?api=1&query=Omega+Truss+Systems+Thousand+Palms+CA"
            target="_blank" rel="noopener noreferrer"
