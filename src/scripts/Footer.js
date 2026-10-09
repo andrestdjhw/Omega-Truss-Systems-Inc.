@@ -1,11 +1,11 @@
 /**
  * OMEGA TRUSS SYSTEMS — Footer (React)
  * Mount: #react-footer (footer.php) con data-home y data-logo (versión clara del logo).
- * NAP pendiente: actualizar PHONE / EMAIL / ADDRESS cuando el cliente confirme.
+ * NAP: PHONE / EMAIL / STREET / CITY_LINE viven en brand.js.
  */
 
 import React from "react"
-import { PHONE, EMAIL, ADDRESS, SOCIALS, SocialIcon } from "./brand"
+import { PHONE, EMAIL, STREET, CITY_LINE, MAPS_URL, SOCIALS, SocialIcon } from "./brand"
 
 const LEGAL = [
   { label: "Privacy Policy", href: "/privacy-policy/" },
@@ -47,7 +47,7 @@ const link =
 export default function Footer() {
   const rootEl = document.querySelector("#react-footer")
   const homeUrl = rootEl?.dataset.home || "/"
-  const logoUrl = rootEl?.dataset.logo || ""
+  const logoUrl = rootEl?.dataset.logo || "" // logo horizontal en blanco (footer.php)
   const patternUrl = rootEl?.dataset.pattern || ""
   const year = new Date().getFullYear()
 
@@ -75,13 +75,13 @@ export default function Footer() {
       {/* Hairline de marca */}
       <div className="relative h-0.5 bg-ember" aria-hidden="true"></div>
 
-      <div className="relative max-w-7xl mx-auto px-4 lg:px-8 py-14 lg:py-20">
+      <div className="relative max-w-site mx-auto px-4 lg:px-8 py-14 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Marca */}
           <div className="lg:col-span-5">
-            <a href={homeUrl} className="brand-chip brand-chip--ember" aria-label="Omega Truss Systems — Home">
+            <a href={homeUrl} className="inline-flex transition-opacity hover:opacity-80" aria-label="Omega Truss Systems — Home">
               {logoUrl ? (
-                <img src={logoUrl} alt="Omega Truss Systems" className="h-10 w-auto" />
+                <img src={logoUrl} alt="Omega Truss Systems" width="900" height="122" className="h-9 lg:h-10 w-auto" loading="lazy" />
               ) : (
                 <span className="leading-none">
                   <span className="block text-2xl font-bold tracking-[0.08em] text-white">OMEGA</span>
@@ -143,7 +143,19 @@ export default function Footer() {
             {EMAIL && (
               <a href={`mailto:${EMAIL}`} className={link}>{EMAIL}</a>
             )}
-            <p className="py-1.5 text-[14px] text-white/75">{ADDRESS}</p>
+            {/* Dirección → perfil de Google Business */}
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block py-1.5 not-italic text-[14px] leading-snug text-white/75 hover:text-ember transition-colors"
+            >
+              <address className="not-italic">
+                {STREET}
+                <br />
+                {CITY_LINE}
+              </address>
+            </a>
             <a
               href="/contact/"
               className="btn-cta btn-cta--ember mt-5 [--fold-bg:var(--color-navy)]"
@@ -158,7 +170,7 @@ export default function Footer() {
 
       {/* Barra legal */}
       <div className="relative border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <div className="max-w-site mx-auto px-4 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
             <p className="text-[12px] text-white/50">
               © {year} Omega Truss Systems Inc. All rights reserved.

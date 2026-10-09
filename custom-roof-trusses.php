@@ -53,15 +53,13 @@ if (!$hero_img) {
            style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 55%;mask-size:auto 55%;"></div>
     <?php endif; ?>
 
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
-      <div class="max-w-3xl reveal">
+    <div class="relative max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28">
+      <div class="max-w-3xl hero-enter">
         <a href="<?php echo esc_url(home_url('/structural-solutions/')); ?>"
            class="inline-flex items-center gap-2 font-display text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60 hover:text-ember transition-colors">
           <span aria-hidden="true">&larr;</span> All Structural Solutions
         </a>
-        <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]">
-          <?php echo esc_html($svc['title']); ?>
-        </h1>
+        <h1 class="split-ready words-in mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]"><?php echo omega_headline($svc['title']); ?></h1>
         <p class="mt-6 max-w-2xl text-base lg:text-lg leading-relaxed text-white/80">
           <?php echo esc_html($svc['sub']); ?>
         </p>
@@ -78,7 +76,7 @@ if (!$hero_img) {
 
   <!-- ============ S2 · THE RISK WE REMOVE ============ -->
   <section class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10">
       <div class="lg:col-span-5 reveal">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">The Risk We Remove</p>
         <h2 class="mt-4 text-3xl lg:text-4xl font-bold leading-tight text-navy">This scope fails on site, not in the shop.</h2>
@@ -91,7 +89,7 @@ if (!$hero_img) {
 
   <!-- ============ S3 · WHAT'S INCLUDED ============ -->
   <section class="bg-mist">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28">
       <h2 class="text-3xl lg:text-4xl font-bold leading-tight text-navy reveal">What's Included</h2>
       <ul class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 reveal-stagger">
         <?php foreach ($svc['included'] as $item) : ?>
@@ -105,10 +103,11 @@ if (!$hero_img) {
   </section>
 
   <!-- ============ S4 · WHY OMEGA ============ -->
-  <section class="bg-white">
-    <div class="max-w-5xl mx-auto px-4 lg:px-8 py-20 lg:py-28 text-center reveal">
+  <section class="relative overflow-hidden bg-navy text-white">
+    <?php echo omega_photo_bg('5.jpg', 'dark'); ?>
+    <div class="relative max-w-5xl mx-auto px-4 lg:px-8 py-24 lg:py-36 text-center reveal">
       <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Why Omega</p>
-      <p class="mx-auto mt-6 max-w-3xl text-xl lg:text-2xl font-display font-bold leading-relaxed text-navy [overflow-wrap:anywhere]">
+      <p class="mx-auto mt-6 max-w-3xl text-xl lg:text-3xl font-display font-bold leading-relaxed text-white [overflow-wrap:anywhere]">
         <?php echo esc_html($svc['why']); ?>
       </p>
     </div>
@@ -118,7 +117,7 @@ if (!$hero_img) {
   <section class="relative overflow-hidden bg-navy text-white">
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
          style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 60%;mask-size:auto 60%;"></div>
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-24">
+    <div class="relative max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-24">
       <h2 class="text-3xl lg:text-4xl font-bold leading-tight reveal">How It Works</h2>
       <ol class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-10 reveal-stagger">
         <?php foreach ($svc['steps'] as $i => $step) : ?>

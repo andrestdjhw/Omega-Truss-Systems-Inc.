@@ -3,13 +3,12 @@
 @source "../";
 
 /* ===== Tipografías de marca (self-hosted en /fonts/) =====
-   Cargando los archivos originales .otf/.ttf tal cual están en /fonts/.
-   (Optimización futura: convertir a .woff2 — ~50% más ligeros.) */
+   WOFF2 primero (~70% más ligero); .otf/.ttf solo como respaldo. */
 
 /* Articulat CF — body (un solo peso real) */
 @font-face {
   font-family: "Articulat CF";
-  src: url("../fonts/ArticulatCF-Normal.ttf") format("truetype");
+  src: url("../fonts/ArticulatCF-Normal.woff2") format("woff2"), url("../fonts/ArticulatCF-Normal.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -18,28 +17,28 @@
 /* Gotham — display */
 @font-face {
   font-family: "Gotham";
-  src: url("../fonts/Gotham-Book.otf") format("opentype");
+  src: url("../fonts/Gotham-Book.woff2") format("woff2"), url("../fonts/Gotham-Book.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../fonts/Gotham-Medium.otf") format("opentype");
+  src: url("../fonts/Gotham-Medium.woff2") format("woff2"), url("../fonts/Gotham-Medium.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../fonts/Gotham-Bold.otf") format("opentype");
+  src: url("../fonts/Gotham-Bold.woff2") format("woff2"), url("../fonts/Gotham-Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Gotham";
-  src: url("../fonts/Gotham-Black.otf") format("opentype");
+  src: url("../fonts/Gotham-Black.woff2") format("woff2"), url("../fonts/Gotham-Black.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -52,9 +51,14 @@
   --color-graphite: #313131;  /* GRAPHITE — neutro oscuro / texto secundario */
   --color-alabaster: #E8E8E8; /* ALABASTER GREY — bordes y fondos suaves */
   --color-mist: #F8F8F8;      /* BRIGHT SNOW — fondos claros */
+  --color-cream: #F7F4EF;     /* blanco cálido — fondo del navbar */
   /* Derivados (tint/shade de la paleta, para el sistema 3D) */
   --color-royal: #3D5C8F;     /* tint de Prussian — glows */
   --color-rust: #7D4326;      /* shade de Cinnamon — profundidad */
+
+  /* Ancho máximo del contenido en todo el sitio (navbar, secciones, footer) → clase max-w-site.
+     Para ajustar los márgenes laterales, cambiar solo este valor. */
+  --container-site: 90rem; /* 1440px */
 
   --font-display: "Gotham", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Articulat CF", "Gotham", ui-sans-serif, system-ui, sans-serif;
@@ -167,9 +171,10 @@
   /* Variante naranja completa (para fondos navy, ej. footer):
      base ember + resplandor en un naranja más claro */
   .btn-cta--ember {
-    --base: var(--color-ember);
-    --glow: rgba(214, 163, 130, 0.95);
-    --glow-0: rgba(214, 163, 130, 0);
+    /* Naranja de CTA un tono más oscuro que el ember de marca (entre ember y rust) */
+    --base: #8E5132;
+    --glow: rgba(196, 128, 90, 0.9);
+    --glow-0: rgba(196, 128, 90, 0);
   }
   .btn-cta:active {
     transform: scale(0.96);
@@ -646,14 +651,33 @@
   padding-bottom: 0.08em;
   margin-bottom: -0.08em;
 }
+/* Las palabras vienen partidas desde PHP (omega_headline): animan solo con CSS
+   desde el primer pintado. Motion.js quita/pone .words-in para repetir la entrada. */
 .split-word-in {
   display: inline-block;
-  transform: translateY(110%);
-  transition: transform 0.95s cubic-bezier(0.22, 0.61, 0.36, 1);
-  transition-delay: calc(var(--i, 0) * 55ms + 120ms);
 }
-.split-ready.words-in .split-word-in {
-  transform: none;
+.words-in .split-word-in {
+  animation: word-up 0.95s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 55ms + 120ms);
+}
+@keyframes word-up {
+  from { transform: translateY(110%); }
+}
+
+/* Entrada de los heros: CSS puro (antes .reveal esperaba al IntersectionObserver) */
+.hero-enter {
+  animation: hero-enter 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(24px); }
+}
+.hero-enter p.uppercase.text-ember.text-xs::before {
+  width: 1.75rem;
+  margin-right: 0.75rem;
+  animation: eyebrow-line 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.35s both;
+}
+@keyframes eyebrow-line {
+  from { width: 0; margin-right: 0; }
 }
 
 /* 3. Hero: zoom de entrada + parallax (escala base 1.08 = margen para el translate) */
@@ -772,6 +796,9 @@ ol.reveal-stagger.is-visible > li[class*="border-t-2"]::before {
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
+  .words-in .split-word-in,
+  .hero-enter,
+  .hero-enter p.uppercase.text-ember.text-xs::before { animation: none; }
   .split-word-in,
   .reveal-stagger > .group img,
   p.uppercase.text-ember.text-xs::before,
@@ -832,4 +859,172 @@ ol.reveal-stagger.is-visible > li[class*="border-t-2"]::before {
     height: 0.875rem;
     width: 0.875rem;
   }
+}
+
+/* ===== Hero del Home: videos en secuencia con fundido cruzado ===== */
+.hero-video {
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+.hero-video.is-active {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { transition: none; }
+}
+
+/* ===== Proceso del Home: números en contorno + flechas entre pasos ===== */
+.process-num {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.55);
+  transition: -webkit-text-stroke-color 0.3s ease, color 0.3s ease;
+}
+.process-step:hover .process-num {
+  -webkit-text-stroke-color: var(--color-ember);
+}
+
+/* Flecha: línea (::after) + punta (::before) desde el ícono hasta el siguiente paso.
+   Solo en desktop, donde los 5 pasos van en una fila. */
+@media (min-width: 1024px) {
+  .process-step:not(:last-child)::after,
+  .process-step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 1.5rem;
+    pointer-events: none;
+  }
+  .process-step:not(:last-child)::after {
+    left: 8rem;
+    right: -1.25rem;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) calc(var(--d, 0s) + 0.4s);
+  }
+  .process-step:not(:last-child)::before {
+    right: -1.25rem;
+    width: 7px;
+    height: 7px;
+    margin-top: -3px;
+    border-top: 1px solid rgba(255, 255, 255, 0.45);
+    border-right: 1px solid rgba(255, 255, 255, 0.45);
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.3s ease calc(var(--d, 0s) + 1.1s);
+  }
+  .reveal-stagger.is-visible > .process-step::after {
+    transform: scaleX(1);
+  }
+  .reveal-stagger.is-visible > .process-step::before {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .process-step::after,
+  .process-step::before {
+    transition: none !important;
+  }
+}
+
+/* ===== Hero del Home: panel navy en degradado (estilo mockup) ===== */
+/* Móvil: el texto ocupa todo el ancho → sombra pareja.
+   Desktop: sólido a la izquierda (texto) y abre hacia la derecha (imagen + form). */
+.hero-shade {
+  background: linear-gradient(180deg, rgba(14, 26, 47, 0.78), rgba(14, 26, 47, 0.88));
+}
+@media (min-width: 1024px) {
+  .hero-shade {
+    background:
+      linear-gradient(90deg,
+        rgba(14, 26, 47, 0.96) 0%,
+        rgba(14, 26, 47, 0.86) 32%,
+        rgba(14, 26, 47, 0.45) 62%,
+        rgba(14, 26, 47, 0.30) 100%),
+      linear-gradient(0deg, rgba(14, 26, 47, 0.35), transparent 35%);
+  }
+}
+
+/* Chips de redes del topbar: ahora el topbar es navy → chip translúcido, hover ember */
+.social-chip--top {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+.social-chip--top:hover {
+  background: var(--color-ember);
+  filter: none;
+}
+
+/* ===== Fotos laterales: marco ember desplazado detrás de la imagen ===== */
+.photo-frame {
+  position: relative;
+  --offset: 0.75rem;
+}
+@media (min-width: 1024px) {
+  .photo-frame { --offset: 1.25rem; }
+}
+.photo-frame img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  border-radius: 0.5rem;
+  box-shadow: 0 24px 50px rgba(14, 26, 47, 0.22);
+}
+.photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: var(--offset) calc(var(--offset) * -1) calc(var(--offset) * -1) var(--offset);
+  border: 2px solid var(--color-ember);
+  border-radius: 0.5rem;
+  opacity: 0.7;
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.photo-frame--right::before {
+  inset: var(--offset) var(--offset) calc(var(--offset) * -1) calc(var(--offset) * -1);
+}
+.photo-frame:hover::before {
+  transform: translate(calc(var(--offset) * -0.4), calc(var(--offset) * -0.4));
+}
+
+/* ===== Cierre del Home: velo sobre el video (navy con un guiño rust abajo a la derecha) ===== */
+.cta-video-shade {
+  background:
+    linear-gradient(160deg,
+      rgba(14, 26, 47, 0.92) 0%,
+      rgba(14, 26, 47, 0.78) 50%,
+      rgba(125, 67, 38, 0.62) 100%);
+}
+
+/* ===== Reseñas (TrustIndex, tema "dark background") sobre la sección navy =====
+   El plugin trae tarjetas #191919 casi negras: se pasan al navy de la marca.
+   Doble clase + !important para ganarle a su CSS (también usa !important). */
+.reviews-widget .ti-widget.ti-goog .ti-review-item > .ti-inner {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.reviews-widget .ti-widget.ti-goog .ti-review-item > .ti-inner:hover {
+  border-color: var(--color-ember) !important;
+  background-color: rgba(255, 255, 255, 0.09) !important;
+}
+.reviews-widget .ti-widget.ti-goog .ti-review-content,
+.reviews-widget .ti-widget.ti-goog .ti-review-content * {
+  color: rgba(255, 255, 255, 0.82);
+}
+.reviews-widget .ti-widget.ti-goog .ti-read-more,
+.reviews-widget .ti-widget.ti-goog .ti-read-more * {
+  color: var(--color-ember) !important;
+}
+
+/* ===== Form del hero: vidrio oscuro translúcido sobre el video ===== */
+.form-chip--glass {
+  background: rgba(14, 26, 47, 0.75);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  backdrop-filter: blur(18px) saturate(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 2px solid var(--color-ember);
+}
+/* Sin soporte de backdrop-filter: un poco más opaco para que el texto se lea igual */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .form-chip--glass { background: rgba(14, 26, 47, 0.92); }
 }

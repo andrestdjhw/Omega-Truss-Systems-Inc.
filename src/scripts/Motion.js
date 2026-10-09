@@ -5,7 +5,8 @@
  * No reemplaza los reveals inline de cada template: los complementa.
  *
  *  1. Barra de progreso de scroll (ember, arriba del todo)
- *  2. H1 palabra por palabra (máscara)
+ *  2. H1 palabra por palabra: repetir la entrada al volver al hero
+ *  3a/3b. Fondos y videos de fondo con carga diferida
  *  3. Hero: zoom de entrada (Ken Burns) + parallax en fondos bg-cover / video
  *  4. Spotlight que sigue al cursor en las cards de servicios y proyectos
  *  5. CTAs magnéticos (.btn-cta)
@@ -38,56 +39,26 @@ function scrollProgress() {
 }
 
 /* ---------- 2. H1 palabra por palabra ---------- */
-function splitWords(el, counter) {
-  Array.from(el.childNodes).forEach((node) => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      const parts = node.textContent.split(/(\s+)/)
-      const frag = document.createDocumentFragment()
-      parts.forEach((part) => {
-        if (!part) return
-        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return }
-        const word = document.createElement("span")
-        word.className = "split-word"
-        const inner = document.createElement("span")
-        inner.className = "split-word-in"
-        inner.style.setProperty("--i", counter.i++)
-        inner.textContent = part
-        word.appendChild(inner)
-        frag.appendChild(word)
-      })
-      node.replaceWith(frag)
-    } else if (node.nodeType === Node.ELEMENT_NODE) {
-      splitWords(node, counter)
-    }
-  })
-}
-
+// Las palabras ya vienen partidas desde PHP (omega_headline) y la entrada es CSS,
+// así el titular se pinta sin esperar a este script. Aquí solo se repite la
+// animación: sale por completo → se quita .words-in; vuelve a entrar → se pone.
 function headlineWords() {
-  const headings = document.querySelectorAll("main h1")
+  const headings = document.querySelectorAll("h1.split-ready")
   if (!headings.length) return
-  // Igual que los reveals: entra → anima; sale por completo → se reinicia
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting && e.intersectionRatio >= 0.15) e.target.classList.add("words-in")
       else if (!e.isIntersecting) e.target.classList.remove("words-in")
     })
   }, { threshold: [0, 0.2] })
-
-  headings.forEach((h) => {
-    h.setAttribute("aria-label", h.textContent.trim().replace(/\s+/g, " "))
-    splitWords(h, { i: 0 })
-    h.classList.add("split-ready")
-    h.querySelectorAll(".split-word").forEach((w) => w.setAttribute("aria-hidden", "true"))
-    void h.offsetWidth // fija el estado inicial antes de animar
-    io.observe(h)
-  })
+  headings.forEach((h) => io.observe(h))
 }
 
 /* ---------- 3. Hero Ken Burns + parallax ---------- */
 function heroAndParallax() {
   // Fondos de imagen absolutos (hero de cada página, banda de Process, etc.) y el video del Home
   const layers = Array.from(
-    document.querySelectorAll("main section > .absolute.bg-cover, main section > .js-hero-video")
+    document.querySelectorAll("main section > .absolute.bg-cover, main section > .js-hero-videos")
   )
   if (!layers.length) return
 
@@ -116,6 +87,43 @@ function heroAndParallax() {
   update()
 }
 
+/* ---------- 3a. Fondos diferidos ---------- */
+// <div class="js-lazy-bg" data-bg="url">: la foto se pide al acercarse al viewport.
+// Corre siempre (también con reduced motion): es carga, no animación.
+function lazyBackgrounds() {
+  const els = document.querySelectorAll(".js-lazy-bg[data-bg]")
+  const load = (el) => {
+    el.style.backgroundImage = `url("${el.dataset.bg}")`
+    el.removeAttribute("data-bg")
+  }
+  if (!("IntersectionObserver" in window)) { els.forEach(load); return }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { load(e.target); io.unobserve(e.target) }
+    })
+  }, { rootMargin: "600px 0px" })
+  els.forEach((el) => io.observe(el))
+}
+
+/* ---------- 3b. Videos de fondo diferidos ---------- */
+// <video class="js-lazy-video" preload="none">: reproduce solo cerca del viewport
+// y se pausa al salir. Con reduced motion nunca llega aquí (queda el poster).
+function lazyVideos() {
+  const videos = document.querySelectorAll(".js-lazy-video")
+  if (!videos.length || !("IntersectionObserver" in window)) return
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const p = e.target.play()
+        if (p && p.catch) p.catch(() => {})
+      } else {
+        e.target.pause()
+      }
+    })
+  }, { rootMargin: "200px 0px" })
+  videos.forEach((v) => io.observe(v))
+}
+
 /* ---------- 4. Spotlight en cards ---------- */
 function spotlightCards() {
   document.querySelectorAll(".reveal-stagger > a.group, .js-project").forEach((card) => {
@@ -142,10 +150,12 @@ function magneticButtons() {
 }
 
 export default function initMotion() {
+  lazyBackgrounds()
   if (reduce) return
   scrollProgress()
   if ("IntersectionObserver" in window) headlineWords()
   heroAndParallax()
+  lazyVideos()
   if (finePointer) {
     spotlightCards()
     magneticButtons()

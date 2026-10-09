@@ -21,18 +21,16 @@ $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01
   <section class="relative overflow-hidden bg-navy text-white">
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
          style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 55%;mask-size:auto 55%;"></div>
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-16 lg:py-24">
+    <div class="hero-enter relative max-w-site mx-auto px-4 lg:px-8 py-16 lg:py-24">
       <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember"><?php echo esc_html($legal['eyebrow']); ?></p>
-      <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]">
-        <?php echo esc_html($legal['title']); ?>
-      </h1>
+      <h1 class="split-ready words-in mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]"><?php echo omega_headline($legal['title']); ?></h1>
       <p class="mt-6 text-sm text-white/60">Last updated: <?php echo esc_html($legal['updated']); ?></p>
     </div>
   </section>
 
   <!-- ============ CONTENIDO (índice lateral + texto) ============ -->
   <section class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12">
 
       <aside class="lg:col-span-3">
         <nav class="lg:sticky lg:top-32" aria-label="On this page">

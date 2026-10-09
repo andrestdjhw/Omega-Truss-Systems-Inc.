@@ -8,16 +8,28 @@ import React from "react"
 // ===== NAP — TODO: reemplazar con datos reales antes de producción =====
 export const PHONE = "(760) 986-7177"
 export const EMAIL = "info@omegatrusssystems.com"
-export const ADDRESS = "Thousand Palms, CA"
+export const ADDRESS = "Thousand Palms, CA" // versión corta (topbar)
+// Dirección completa, tal como figura en la ficha de Google Business
+export const STREET = "72215 Woburn Ct"
+export const CITY_LINE = "Thousand Palms, CA 92276"
+
+// Perfil de Google Business (GMB). Pegar aquí el link del perfil: activa el chip
+// de Google junto a las redes y hace que la ubicación del topbar abra el perfil.
+// Vacío = el chip no se muestra y la ubicación abre una búsqueda en Maps.
+// Ficha: "Omega Truss System" · 72215 Woburn Ct, Thousand Palms, CA 92276 (place ID estable)
+export const GMB_URL = "https://www.google.com/maps/search/?api=1&query=Omega+Truss+System&query_place_id=ChIJizbc1hDj2oAR_MSeSCkaGRU"
+
 export const MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=Omega+Truss+Systems+Thousand+Palms+CA" // TODO: dirección exacta
+  GMB_URL || "https://www.google.com/maps/search/?api=1&query=Omega+Truss+Systems+Thousand+Palms+CA"
 
 // ===== Redes =====
+// compactHide: no cabe en el topbar móvil (se ve desde sm, en el footer y en el menú móvil)
 export const SOCIALS = [
+  { id: "gmb", label: "Google Business Profile", url: GMB_URL, compactHide: true },
   { id: "fb", label: "Facebook", url: "https://www.facebook.com/OmegaTrussSystems" },
   { id: "ig", label: "Instagram", url: "https://www.instagram.com/omegatrusssystems" },
   { id: "li", label: "LinkedIn", url: "https://www.linkedin.com/company/omegatrusssystems/" },
-]
+].filter((s) => s.url)
 
 export function SocialIcon({ id }) {
   const cls = "h-4 w-4"
@@ -34,6 +46,13 @@ export function SocialIcon({ id }) {
           <rect x="4" y="4" width="16" height="16" rx="4.5" />
           <circle cx="12" cy="12" r="3.6" />
           <circle cx="16.8" cy="7.2" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      )
+    case "gmb":
+      // Marca "G" de Google (Simple Icons, CC0), en un solo color como las demás
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.85 3.19-1.79 4.13-1.15 1.15-2.93 2.4-6.05 2.4-4.83 0-8.6-3.89-8.6-8.72s3.77-8.72 8.6-8.72c2.6 0 4.51 1.03 5.91 2.35l2.31-2.31C18.75 1.44 16.13 0 12.48 0 5.87 0 .31 5.39.31 12s5.56 12 12.17 12c3.57 0 6.27-1.17 8.37-3.36 2.16-2.16 2.84-5.21 2.84-7.67 0-.76-.05-1.47-.17-2.05H12.48z" />
         </svg>
       )
     case "li":

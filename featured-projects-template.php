@@ -10,86 +10,7 @@
   Project1.jpg, Project02–04.jpg, Project05-scaled.jpg, Project06.jpg
 */
 
-$omega_projects = array(
-  array(
-    'title'     => 'Hillside Custom Estate',
-    'category'  => 'Luxury Residential',
-    'location'  => 'Orange County, CA',
-    'scope'     => 'Full roof truss system, engineered + delivered',
-    'sqft'      => '8,400 sq ft',
-    'completion'=> '[Year]',
-    'builder'   => '[Builder name]',
-    'architect' => '[Architect name]',
-    'challenge' => 'Mixed-pitch vaulted roof over a stepped hillside foundation, with seismic and wind loads that pushed standard span tables past their limits.',
-    'solution'  => 'Site-specific load engineering with custom scissor and coffer systems, delivered plan-check-ready and staged in sequence with the framer.',
-    'img'       => '/wp-content/uploads/2026/08/Project1.jpg',
-  ),
-  array(
-    'title'     => 'Coastal Modern Residence',
-    'category'  => 'Luxury Residential',
-    'location'  => 'San Diego County, CA',
-    'scope'     => 'Roof + floor trusses',
-    'sqft'      => '6,100 sq ft',
-    'completion'=> '[Year]',
-    'builder'   => '[Builder name]',
-    'architect' => '[Architect name]',
-    'challenge' => 'Long open-plan spans with coastal exposure requirements and an architect determined to keep every ceiling line clean.',
-    'solution'  => 'Open-web floor systems engineered for vibration performance, with corrosion-conscious detailing for coastal exposure.',
-    'img'       => '/wp-content/uploads/2026/08/Project02.jpg',
-  ),
-  array(
-    'title'     => 'Fire Zone Mountain Build',
-    'category'  => 'Fire Zone',
-    'location'  => 'Riverside County, CA',
-    'scope'     => 'Fire-zone engineered roof system',
-    'sqft'      => '4,700 sq ft',
-    'completion'=> '[Year]',
-    'builder'   => '[Builder name]',
-    'architect' => '[Architect name]',
-    'challenge' => 'Wildfire-designated zone with strict ignition-resistance requirements and a plan checker known for sending packages back.',
-    'solution'  => 'Fire-zone engineering from day one — the package cleared plan check without a single structural comment.',
-    'img'       => '/wp-content/uploads/2026/08/Project03.jpg',
-  ),
-  array(
-    'title'     => 'Multifamily Development, Phase I',
-    'category'  => 'Multifamily',
-    'location'  => 'Coachella Valley, CA',
-    'scope'     => 'Floor + roof trusses, phased delivery',
-    'sqft'      => '52,000 sq ft',
-    'completion'=> '[Year]',
-    'builder'   => '[Builder name]',
-    'architect' => '[Architect name]',
-    'challenge' => 'Forty-eight units on an aggressive framing schedule where one late truss package would have stacked delays across every building.',
-    'solution'  => 'Fabrication and delivery phased by building to match the framing sequence — every package on site the day the crew needed it.',
-    'img'       => '/wp-content/uploads/2026/08/Project04.jpg',
-  ),
-  array(
-    'title'     => 'Mixed-Use Corner Development',
-    'category'  => 'Multifamily',
-    'location'  => 'San Diego County, CA',
-    'scope'     => 'Structural engineering + roof systems',
-    'sqft'      => '28,500 sq ft',
-    'completion'=> '[Year]',
-    'builder'   => '[Builder name]',
-    'architect' => '[Architect name]',
-    'challenge' => 'Retail below, residential above: two structural logics meeting at one transfer level, with MEP fighting for every inch of the floor system.',
-    'solution'  => 'Open-web floor trusses with MEP routing designed in, coordinated directly with the mechanical engineer before fabrication.',
-    'img'       => '/wp-content/uploads/2026/08/Project05-scaled.jpg',
-  ),
-  array(
-    'title'     => 'Vaulted Great Room Estate',
-    'category'  => 'Custom Architecture',
-    'location'  => 'Orange County, CA',
-    'scope'     => 'Custom roof trusses, engineered + delivered',
-    'sqft'      => '7,200 sq ft',
-    'completion'=> '[Year]',
-    'builder'   => '[Builder name]',
-    'architect' => '[Architect name]',
-    'challenge' => 'A 32-foot clear-span vaulted great room the original fabricator declined to quote.',
-    'solution'  => 'Founder-led engineering resolved the geometry with a custom scissor system — engineered, fabricated and delivered by one accountable team.',
-    'img'       => '/wp-content/uploads/2026/08/Project06.jpg',
-  ),
-);
+require get_theme_file_path('/inc/projects-data.php');
 
 // Categorías únicas para los filtros
 $omega_categories = array_values(array_unique(array_map(function ($p) { return $p['category']; }, $omega_projects)));
@@ -115,12 +36,10 @@ if (!$hero_img) {
            style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 55%;mask-size:auto 55%;"></div>
     <?php endif; ?>
 
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-32">
-      <div class="max-w-3xl reveal">
+    <div class="relative max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-32">
+      <div class="max-w-3xl hero-enter">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Featured Projects</p>
-        <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]">
-          The Proof Is In The Structure.
-        </h1>
+        <h1 class="split-ready words-in mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]"><?php echo omega_headline('The Proof Is In The Structure.'); ?></h1>
         <p class="mt-6 max-w-2xl text-base lg:text-lg leading-relaxed text-white/80">
           Selected work across luxury residential, multifamily and code-critical
           construction in Southern California.
@@ -149,7 +68,7 @@ if (!$hero_img) {
 
   <!-- ============ S2 · FILTROS + GRID ============ -->
   <section class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-16 lg:py-24">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-16 lg:py-24">
 
       <!-- Filtros -->
       <div class="flex flex-wrap items-center gap-2.5 reveal" role="group" aria-label="Filter projects by category">

@@ -3,8 +3,8 @@
   <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preload" href="<?php echo esc_url(get_theme_file_uri('/fonts/Gotham-Bold.otf')); ?>" as="font" type="font/otf" crossorigin>
-    <link rel="preload" href="<?php echo esc_url(get_theme_file_uri('/fonts/ArticulatCF-Normal.ttf')); ?>" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="<?php echo esc_url(get_theme_file_uri('/fonts/Gotham-Black.woff2')); ?>" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?php echo esc_url(get_theme_file_uri('/fonts/ArticulatCF-Normal.woff2')); ?>" as="font" type="font/woff2" crossorigin>
     <?php wp_head(); ?>
   </head>
   <body <?php body_class(); ?>>

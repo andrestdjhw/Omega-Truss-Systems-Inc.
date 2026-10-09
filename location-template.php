@@ -25,12 +25,10 @@ if (!$hero_img) {
            style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 55%;mask-size:auto 55%;"></div>
     <?php endif; ?>
 
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-32">
-      <div class="max-w-3xl reveal">
+    <div class="relative max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-32">
+      <div class="max-w-3xl hero-enter">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Service Area</p>
-        <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]">
-          Built In The Desert. Trusted Across Southern California.
-        </h1>
+        <h1 class="split-ready words-in mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]"><?php echo omega_headline('Built In The Desert. Trusted Across Southern California.'); ?></h1>
         <p class="mt-6 max-w-2xl text-base lg:text-lg leading-relaxed text-white/80">
           From our facility in Thousand Palms, we engineer, fabricate and deliver truss
           systems for the region's most demanding markets.
@@ -48,7 +46,7 @@ if (!$hero_img) {
 
   <!-- ============ S2 · PRIMARY MARKETS ============ -->
   <section class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28">
       <div class="max-w-2xl reveal">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Primary Markets</p>
         <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy">Three regions. One standard.</h2>
@@ -96,20 +94,27 @@ if (!$hero_img) {
 
   <!-- ============ S4 · HQ + MAPA ============ -->
   <section class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
       <div class="lg:col-span-5 reveal">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Headquarters &amp; Fabrication</p>
         <h2 class="mt-4 text-3xl lg:text-4xl font-bold leading-tight text-navy">Thousand Palms, CA</h2>
+        <div class="photo-frame mt-6">
+          <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/10/7.jpg')); ?>" alt="Aerial view of the Omega Truss Systems facility in Thousand Palms, California" class="aspect-[16/9] w-full object-cover" loading="lazy">
+        </div>
         <p class="mt-5 text-base leading-relaxed text-navy/75">
           Deliveries staged and scheduled to your framing sequence across the service area.
         </p>
-        <!-- TODO NAP: dirección exacta, teléfono y email cuando el cliente confirme -->
+        <!-- NAP según la ficha de Google Business -->
         <div class="mt-6 space-y-1.5 text-sm text-navy/70">
-          <p>[Full address pending]</p>
+          <address class="not-italic">
+            <a href="<?php echo esc_url(OMEGA_GMB_URL); ?>" target="_blank" rel="noopener noreferrer" class="hover:text-ember transition-colors">
+              72215 Woburn Ct<br>Thousand Palms, CA 92276
+            </a>
+          </address>
           <p><a href="tel:+17609867177" class="hover:text-ember transition-colors">(760) 986-7177</a></p>
-          <p>info@omegatrusssystems.com</p>
+          <p><a href="mailto:info@omegatrusssystems.com" class="hover:text-ember transition-colors">info@omegatrusssystems.com</a></p>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Omega+Truss+Systems+Thousand+Palms+CA"
+        <a href="<?php echo esc_url(OMEGA_GMB_URL); ?>"
            target="_blank" rel="noopener noreferrer"
            class="mt-8 inline-flex items-center gap-2 font-display text-[13px] font-semibold uppercase tracking-[0.12em] text-navy hover:text-ember transition-colors">
           Open in Google Maps <span aria-hidden="true">&rarr;</span>
@@ -175,8 +180,8 @@ if (!$hero_img) {
 
   <!-- ============ S6 · CINTA VISUAL ============ -->
   <section class="relative h-64 lg:h-96 overflow-hidden reveal">
-    <div class="absolute inset-0 bg-cover bg-center bg-scroll lg:bg-fixed"
-         style="background-image:url('<?php echo esc_url(home_url('/wp-content/uploads/2026/08/Location.png')); ?>');" aria-hidden="true"></div>
+    <div class="js-lazy-bg absolute inset-0 bg-cover bg-center"
+         data-bg="<?php echo esc_url(home_url('/wp-content/uploads/2026/08/Location.jpg')); ?>" aria-hidden="true"></div>
     <div class="absolute inset-0 bg-navy/20" aria-hidden="true"></div>
   </section>
 

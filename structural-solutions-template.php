@@ -23,12 +23,10 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
            style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 55%;mask-size:auto 55%;"></div>
     <?php endif; ?>
 
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-32">
-      <div class="max-w-3xl reveal">
+    <div class="relative max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-32">
+      <div class="max-w-3xl hero-enter">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Structural Solutions</p>
-        <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]">
-          One Integrated Scope. From CAD Design To Delivery.
-        </h1>
+        <h1 class="split-ready words-in mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]"><?php echo omega_headline('One Integrated Scope. From CAD Design To Delivery.'); ?></h1>
         <p class="mt-6 max-w-2xl text-base lg:text-lg leading-relaxed text-white/80">
           Engineered for California's strictest codes — designed, fabricated and delivered
           by one accountable team.
@@ -46,7 +44,7 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
 
   <!-- ============ S2 · GRID DE SERVICIOS ============ -->
   <section class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 reveal-stagger">
         <?php
         $services = array(
@@ -77,9 +75,10 @@ $hero_img    = get_the_post_thumbnail_url(null, 'full');
     </div>
   </section>
 
-  <!-- ============ S3 · PROCESO ============ -->
-  <section class="bg-mist">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-16 lg:py-20">
+  <!-- ============ S3 · PROCESO (foto clara de fondo) ============ -->
+  <section class="relative overflow-hidden bg-mist">
+    <?php echo omega_photo_bg('4.jpg', 'light'); ?>
+    <div class="relative max-w-site mx-auto px-4 lg:px-8 py-16 lg:py-20">
       <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember reveal">One Team, End To End</p>
       <ol class="mt-8 grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-8 reveal-stagger">
         <?php

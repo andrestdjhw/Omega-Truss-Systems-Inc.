@@ -7,7 +7,7 @@
 get_header();
 
 $pattern_url = home_url('/wp-content/uploads/2026/07/Omega-Elementos-de-Apoyo-01-scaled.png');
-$hero_img    = home_url('/wp-content/uploads/2026/08/About.png');
+$hero_img    = home_url('/wp-content/uploads/2026/08/About.jpg');
 ?>
 
 <main id="main">
@@ -17,19 +17,17 @@ $hero_img    = home_url('/wp-content/uploads/2026/08/About.png');
     <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('<?php echo esc_url($hero_img); ?>');" aria-hidden="true"></div>
     <div class="absolute inset-0 bg-navy/75" aria-hidden="true"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-32">
-      <div class="max-w-3xl reveal">
+    <div class="relative max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-32">
+      <div class="max-w-3xl hero-enter">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">About Omega</p>
-        <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]">
-          Engineering Should Accelerate Construction. Not Slow It Down.
-        </h1>
+        <h1 class="split-ready words-in mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] [overflow-wrap:anywhere]"><?php echo omega_headline('Engineering Should Accelerate Construction. Not Slow It Down.'); ?></h1>
       </div>
     </div>
   </section>
 
   <!-- ============ S2 · THE BELIEF ============ -->
   <section class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10">
       <div class="lg:col-span-5 reveal">
         <h2 class="text-3xl lg:text-4xl font-bold leading-tight text-navy">One belief. One roof. One accountable partner.</h2>
       </div>
@@ -51,15 +49,18 @@ $hero_img    = home_url('/wp-content/uploads/2026/08/About.png');
 
   <!-- ============ S3 · FOUNDER-LED ============ -->
   <section class="bg-mist">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <div class="lg:col-span-6 reveal">
+        <div class="photo-frame">
+          <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/10/1.jpg')); ?>" alt="Omega team member cutting truss lumber in the Thousand Palms facility" class="aspect-[4/3] w-full object-cover" loading="lazy">
+        </div>
+      </div>
       <div class="lg:col-span-6 reveal">
         <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Founder-Led Engineering</p>
         <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy [overflow-wrap:anywhere]">
-          25+ Years At The Desk Where It Gets Solved.
+          <?php echo omega_accent('25+ Years At The Desk Where It Gets Solved.'); ?>
         </h2>
-      </div>
-      <div class="lg:col-span-5 lg:col-start-8 reveal">
-        <p class="text-base lg:text-lg leading-relaxed text-navy/75">
+        <p class="mt-6 text-base lg:text-lg leading-relaxed text-navy/75">
           Omega is founder-led, with more than 25 years of structural engineering experience
           behind every system we design. When code gets complicated or a design gets ambitious,
           most companies start outsourcing or delaying. We don't. The problem comes to our desk,
@@ -71,13 +72,16 @@ $hero_img    = home_url('/wp-content/uploads/2026/08/About.png');
 
   <!-- ============ S4 · ONE ACCOUNTABLE PARTNER ============ -->
   <section class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
       <div class="lg:col-span-6 lg:order-2 reveal">
-        <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Fully Integrated</p>
-        <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy">No Handoffs. No Finger-Pointing.</h2>
+        <div class="photo-frame photo-frame--right">
+          <img src="<?php echo esc_url(home_url('/wp-content/uploads/2026/10/3.jpg')); ?>" alt="Omega fabricator cutting lumber for a truss package on the shop floor" class="aspect-[4/3] w-full object-cover" loading="lazy">
+        </div>
       </div>
-      <div class="lg:col-span-5 lg:order-1 reveal">
-        <p class="text-base lg:text-lg leading-relaxed text-navy/75">
+      <div class="lg:col-span-6 lg:order-1 reveal">
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Fully Integrated</p>
+        <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy"><?php echo omega_accent('No Handoffs. No Finger-Pointing.'); ?></h2>
+        <p class="mt-6 text-base lg:text-lg leading-relaxed text-navy/75">
           No outsourced engineering. No gap between the drawing, the shop and the delivery.
           When you call Omega, the team that engineered your system is the team that
           fabricates it and delivers it to your site, ready for your framing sequence.
@@ -90,7 +94,7 @@ $hero_img    = home_url('/wp-content/uploads/2026/08/About.png');
   <section class="relative overflow-hidden bg-navy text-white">
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
          style="background-color:rgba(255,255,255,0.05);-webkit-mask-image:url('<?php echo esc_url($pattern_url); ?>');mask-image:url('<?php echo esc_url($pattern_url); ?>');-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-size:auto 60%;mask-size:auto 60%;"></div>
-    <div class="relative max-w-7xl mx-auto px-4 lg:px-8 py-16 lg:py-20">
+    <div class="relative max-w-site mx-auto px-4 lg:px-8 py-16 lg:py-20">
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 reveal-stagger">
         <div class="min-w-0">
           <p class="font-display text-4xl lg:text-6xl font-extrabold"><span class="js-count" data-count="98" data-decimals="0">0</span><span class="text-ember">%</span></p>
@@ -113,16 +117,17 @@ $hero_img    = home_url('/wp-content/uploads/2026/08/About.png');
   </section>
 
   <!-- ============ S6 · WHERE WE WORK ============ -->
-  <section class="bg-white">
-    <div class="max-w-5xl mx-auto px-4 lg:px-8 py-20 lg:py-28 text-center reveal">
+  <section class="relative overflow-hidden bg-navy text-white">
+    <?php echo omega_photo_bg('7.jpg', 'dark'); ?>
+    <div class="relative max-w-5xl mx-auto px-4 lg:px-8 py-24 lg:py-36 text-center reveal">
       <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Where We Work</p>
-      <h2 class="mt-4 text-3xl lg:text-4xl font-bold leading-tight text-navy">From the Coachella Valley to San Diego and Orange County.</h2>
-      <p class="mx-auto mt-6 max-w-2xl text-base lg:text-lg leading-relaxed text-navy/75">
+      <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight"><?php echo omega_accent('From the Coachella Valley to San Diego and Orange County.'); ?></h2>
+      <p class="mx-auto mt-6 max-w-2xl text-base lg:text-lg leading-relaxed text-white/80">
         Based in Thousand Palms, California, serving Southern California's most demanding
         construction markets.
       </p>
       <a href="<?php echo esc_url(home_url('/location/')); ?>"
-         class="mt-8 inline-flex items-center gap-2 font-display text-[13px] font-semibold uppercase tracking-[0.12em] text-navy hover:text-ember transition-colors">
+         class="mt-8 inline-flex items-center gap-2 font-display text-[13px] font-semibold uppercase tracking-[0.12em] text-white hover:text-ember transition-colors">
         See our service area <span aria-hidden="true">&rarr;</span>
       </a>
     </div>

@@ -48,7 +48,7 @@ const LINKS_AFTER = [
 const CTA = { label: "Schedule a Consultation", href: "/contact/" }
 
 // Estampado de marca sobre el navbar: "blanco más oscuro" (ajustable)
-const PATTERN_COLOR = "rgba(255, 255, 255, 0.12)"
+const PATTERN_COLOR = "rgba(14, 26, 47, 0.05)" // estampado navy muy sutil sobre el fondo crema
 
 /* Comportamiento de la topbar (ajustables) */
 const HIDE_AFTER = 40   // px de scroll antes de permitir esconder la topbar
@@ -250,8 +250,8 @@ export default function Navbar() {
   }, [mobileOpen, topbarHidden])
 
   const linkBase =
-    "text-[13px] font-medium uppercase tracking-[0.14em] text-white/85 hover:text-white transition-colors whitespace-nowrap"
-  const currentMark = "text-white border-b border-white pb-0.5"
+    "font-display text-[13px] font-medium uppercase tracking-[0.12em] text-navy/85 hover:text-ember transition-colors whitespace-nowrap" // Gotham Medium (Articulat solo tiene 400)
+  const currentMark = "!text-ember border-b-2 border-ember pb-1"
   // OJO: no combinar topLink con "hidden" — en Tailwind v4 su inline-flex le gana.
   // Para esconder algo en móvil, esconder el wrapper o un <span> interno.
   const topLink =
@@ -261,22 +261,22 @@ export default function Navbar() {
     <header
       ref={headerRef}
       onMouseLeave={() => setServicesOpen(false)}
-      className={`bg-ember/95 border-b border-black/10 transition-shadow duration-300 ${
-        scrolled ? "shadow-[0_1px_12px_rgba(14,26,47,0.08)]" : ""
+      className={`bg-cream border-b border-navy/10 transition-shadow duration-300 ${
+        scrolled ? "shadow-[0_4px_20px_rgba(14,26,47,0.10)]" : ""
       }`}
     >
       {/* Hairline de marca */}
-      <div className="h-0.5 bg-navy" aria-hidden="true"></div>
+      <div className="h-0.5 bg-ember" aria-hidden="true"></div>
 
       {/* ============ TOPBAR ============ */}
       <div
-        className={`bg-rust overflow-hidden transition-[max-height] duration-300 ease-out ${
+        className={`bg-navy overflow-hidden transition-[max-height] duration-300 ease-out ${
           topbarHidden ? "max-h-0" : "max-h-12"
         }`}
       >
         {/* Móvil: flex con extremos (sin columna central vacía que coma espacio).
             Desde lg: 3 columnas con la dirección centrada. */}
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 h-10 flex justify-between lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 lg:gap-4">
+        <div className="max-w-site mx-auto px-4 lg:px-8 h-10 flex justify-between lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 lg:gap-4">
           {/* Izquierda: teléfono + email (en móvil sin íconos para que quepan ambos textos) */}
           <div className="flex items-center gap-3 sm:gap-5 min-w-0">
             <a href={`tel:${PHONE.replace(/[^0-9+]/g, "")}`} className={topLink}>
@@ -311,7 +311,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="social-chip social-chip--top"
+                className={`social-chip social-chip--top ${s.compactHide ? "hidden sm:inline-flex" : ""}`}
               >
                 <SocialIcon id={s.id} />
               </a>
@@ -343,24 +343,27 @@ export default function Navbar() {
           ></div>
         )}
 
-      <nav className="relative max-w-7xl mx-auto px-4 lg:px-8" aria-label="Main">
-        <div className="flex items-center justify-between h-[72px] lg:h-20">
+      <nav className="relative max-w-site mx-auto px-4 lg:px-8" aria-label="Main">
+        {/* Desktop: 3 columnas (logo | links centrados | CTA). Las laterales son 1fr
+            iguales, así los links quedan centrados respecto a la barra completa.
+            Móvil: logo + hamburguesa. */}
+        <div className="flex items-center justify-between h-[72px] lg:h-20 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6">
           {/* Logo */}
-          <a href={homeUrl} className="flex items-center shrink-0" aria-label="Omega Truss Systems — Home">
+          <a href={homeUrl} className="flex items-center shrink-0 lg:justify-self-start" aria-label="Omega Truss Systems — Home">
             {logoUrl ? (
-              <img src={logoUrl} alt="Omega Truss Systems" className="h-9 lg:h-10 w-auto brightness-0 invert" />
+              <img src={logoUrl} alt="Omega Truss Systems" className="h-9 lg:h-10 w-auto" />
             ) : (
               <span className="leading-none">
-                <span className="block text-xl lg:text-2xl font-bold tracking-[0.08em] text-white">OMEGA</span>
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.42em] text-white/75 mt-1">
+                <span className="block text-xl lg:text-2xl font-bold tracking-[0.08em] text-navy">OMEGA</span>
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.42em] text-navy/70 mt-1">
                   Truss Systems
                 </span>
               </span>
             )}
           </a>
 
-          {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-8">
+          {/* Desktop nav (centro) */}
+          <div className="hidden lg:flex items-center justify-center gap-6 xl:gap-8">
             {LINKS_BEFORE.map((l) => (
               <a key={l.href} href={l.href} className={`${linkBase} ${isCurrent(l.href) ? currentMark : ""}`}>
                 {l.label}
@@ -371,7 +374,7 @@ export default function Navbar() {
             <div className="relative" ref={dropdownRef}>
               <button
                 type="button"
-                className={`${linkBase} inline-flex items-center gap-1.5 ${servicesOpen ? "text-white" : ""}`}
+                className={`${linkBase} inline-flex items-center gap-1.5 ${servicesOpen ? "!text-ember" : ""}`}
                 aria-expanded={servicesOpen}
                 aria-haspopup="true"
                 onClick={() => setServicesOpen((v) => !v)}
@@ -389,8 +392,11 @@ export default function Navbar() {
               </a>
             ))}
 
-            {/* CTA */}
-            <a href={CTA.href} className="btn-cta">
+          </div>
+
+          {/* CTA (derecha) */}
+          <div className="hidden lg:flex justify-end">
+            <a href={CTA.href} className="btn-cta btn-cta--ember [--fold-bg:var(--color-cream)]">
               <CtaPoints />
               <span className="fold" aria-hidden="true"></span>
               <span className="inner">{CTA.label}</span>
@@ -400,7 +406,7 @@ export default function Navbar() {
           {/* Toggle móvil */}
           <button
             type="button"
-            className="lg:hidden inline-flex items-center justify-center h-11 w-11 text-white"
+            className="lg:hidden inline-flex items-center justify-center h-11 w-11 text-navy"
             aria-expanded={mobileOpen}
             aria-controls="omega-mobile-menu"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -428,7 +434,7 @@ export default function Navbar() {
           className="hidden lg:block absolute left-0 right-0 top-full bg-white border-b border-navy/10 shadow-[0_24px_60px_rgba(14,26,47,0.16)] mega-panel"
         >
           <div className="h-0.5 bg-ember" aria-hidden="true"></div>
-          <div className="max-w-7xl mx-auto px-4 lg:px-8 py-10 grid grid-cols-12 gap-10">
+          <div className="max-w-site mx-auto px-4 lg:px-8 py-10 grid grid-cols-12 gap-10">
             {/* Columna de encabezado */}
             <div className="col-span-4 border-r border-navy/10 pr-10">
               <p className="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Structural Solutions</p>
