@@ -120,6 +120,45 @@ $band_img    = home_url('/wp-content/uploads/2026/10/9.jpg'); // fondo de Proces
 
   </div><!-- /hero-viewport -->
 
+  <!-- ============ S7A · VIDEO CON AUDIO (clic para reproducir; Motion.js · .js-feature-video) ============ -->
+  <section class="bg-cream">
+    <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28">
+      <div class="mx-auto max-w-3xl text-center reveal">
+        <p class="font-display text-xs font-semibold uppercase tracking-[0.22em] text-ember">Inside Omega</p>
+        <h2 class="mt-4 text-3xl lg:text-5xl font-bold leading-tight text-navy"><?php echo omega_accent('See What Happens After You Send Your Plans.'); ?></h2>
+        <p class="mx-auto mt-5 max-w-2xl text-base lg:text-lg leading-relaxed text-navy/75">
+          A walkthrough of our process, from the first plan review to a truss package ready
+          for delivery, in under three minutes.
+        </p>
+      </div>
+
+      <div class="video-frame mx-auto mt-12 max-w-5xl reveal">
+        <div class="js-feature-video relative aspect-video overflow-hidden rounded-xl bg-navy">
+          <!-- preload="none": no se descarga nada hasta el clic. "controls" es el
+               respaldo sin JS; Motion.js lo quita y muestra la portada con play. -->
+          <video class="absolute inset-0 h-full w-full object-cover" controls playsinline preload="none"
+                 poster="<?php echo esc_url(home_url('/wp-content/uploads/2026/10/omega-video-poster.jpg')); ?>">
+            <source src="<?php echo esc_url(home_url('/wp-content/uploads/2026/10/Omega-Web-Page-video-vr2-1-720.mp4')); ?>" type="video/mp4" media="(max-width: 767px)">
+            <source src="<?php echo esc_url(home_url('/wp-content/uploads/2026/10/Omega-Web-Page-video-vr2-1.mp4')); ?>" type="video/mp4">
+          </video>
+          <button type="button" class="video-cover group absolute inset-0 hidden flex-col items-center justify-center gap-5 text-white"
+                  aria-label="Play video: See what happens after you send your plans (2:30, with sound)">
+            <span class="video-play flex h-20 w-20 lg:h-24 lg:w-24 items-center justify-center rounded-full bg-[#8E5132] text-white shadow-[0_12px_40px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-110">
+              <svg class="ml-1 h-8 w-8 lg:h-10 lg:w-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14Z"/></svg>
+            </span>
+            <span class="font-display text-xs lg:text-sm font-semibold uppercase tracking-[0.18em]">
+              Watch the video <span class="mx-2 text-white/40" aria-hidden="true">·</span> 2:30
+              <span class="ml-2 inline-flex items-center gap-1 text-white/70 normal-case tracking-normal">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+                with sound
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ S6 · STRUCTURAL SOLUTIONS ============ -->
   <section class="bg-white">
     <div class="max-w-site mx-auto px-4 lg:px-8 py-20 lg:py-28">

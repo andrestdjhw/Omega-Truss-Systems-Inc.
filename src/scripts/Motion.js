@@ -105,6 +105,35 @@ function lazyBackgrounds() {
   els.forEach((el) => io.observe(el))
 }
 
+/* ---------- 3c. Video destacado con audio (clic para reproducir) ---------- */
+// .js-feature-video > video[controls][preload=none] + button.video-cover
+// Con JS: se ocultan los controles nativos y se muestra la portada con play;
+// al clic arranca con sonido y aparecen los controles. Si sale de pantalla
+// mientras suena, se pausa (no queda audio sonando fuera de vista).
+function featureVideos() {
+  document.querySelectorAll(".js-feature-video").forEach((wrap) => {
+    const video = wrap.querySelector("video")
+    const cover = wrap.querySelector(".video-cover")
+    if (!video || !cover) return
+    video.controls = false
+    cover.classList.remove("hidden")
+    cover.classList.add("flex")
+    cover.addEventListener("click", () => {
+      wrap.classList.add("is-playing")
+      video.controls = true
+      video.muted = false
+      const p = video.play()
+      if (p && p.catch) p.catch(() => {})
+      video.focus({ preventScroll: true })
+    })
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting && !video.paused) video.pause()
+      }, { threshold: 0.25 }).observe(wrap)
+    }
+  })
+}
+
 /* ---------- 3b. Videos de fondo diferidos ---------- */
 // <video class="js-lazy-video" preload="none">: reproduce solo cerca del viewport
 // y se pausa al salir. Con reduced motion nunca llega aquí (queda el poster).
@@ -151,6 +180,7 @@ function magneticButtons() {
 
 export default function initMotion() {
   lazyBackgrounds()
+  featureVideos()
   if (reduce) return
   scrollProgress()
   if ("IntersectionObserver" in window) headlineWords()
