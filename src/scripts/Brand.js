@@ -6,7 +6,14 @@
 import React from "react"
 
 // ===== NAP — TODO: reemplazar con datos reales antes de producción =====
-export const PHONE = "(760) 986-7177"
+export const PHONE = "(760) 986-7177" // línea principal (topbar, chatbot, menú móvil)
+// Líneas adicionales: si no contestan en una, el cliente tiene otras dos
+export const EXTRA_PHONES = [
+  { label: "Project Management", number: "(442) 402-7015" },
+  { label: "General Questions", number: "(760) 534-8545" },
+]
+export const HOURS = "Mon – Fri · 7:30 AM – 3:30 PM"
+export const tel = (n) => `tel:+1${n.replace(/\D/g, "")}`
 export const EMAIL = "info@omegatrusssystems.com"
 export const ADDRESS = "Thousand Palms, CA" // versión corta (topbar)
 // Dirección completa, tal como figura en la ficha de Google Business

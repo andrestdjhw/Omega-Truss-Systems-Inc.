@@ -5,7 +5,7 @@
  */
 
 import React from "react"
-import { PHONE, EMAIL, STREET, CITY_LINE, MAPS_URL, SOCIALS, SocialIcon } from "./brand"
+import { PHONE, EXTRA_PHONES, HOURS, tel, EMAIL, STREET, CITY_LINE, MAPS_URL, SOCIALS, SocialIcon } from "./brand"
 
 const LEGAL = [
   { label: "Privacy Policy", href: "/privacy-policy/" },
@@ -137,9 +137,17 @@ export default function Footer() {
           {/* Get in touch */}
           <div className="lg:col-span-2">
             <h2 className={colHead}>Get In Touch</h2>
-            {PHONE && (
-              <a href={`tel:${PHONE.replace(/[^0-9+]/g, "")}`} className={link}>{PHONE}</a>
-            )}
+            {/* Teléfonos con etiqueta */}
+            <dl className="mb-2 space-y-2">
+              {[{ label: "Main Line", number: PHONE }, ...EXTRA_PHONES].map((p) => (
+                <div key={p.number}>
+                  <dt className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/45">{p.label}</dt>
+                  <dd>
+                    <a href={tel(p.number)} className="text-[14px] text-white/85 hover:text-ember transition-colors">{p.number}</a>
+                  </dd>
+                </div>
+              ))}
+            </dl>
             {EMAIL && (
               <a href={`mailto:${EMAIL}`} className={link}>{EMAIL}</a>
             )}
@@ -156,6 +164,14 @@ export default function Footer() {
                 {CITY_LINE}
               </address>
             </a>
+            {/* Horario */}
+            <p className="flex items-start gap-2 py-1.5 text-[14px] leading-snug text-white/75">
+              <svg className="mt-0.5 h-4 w-4 shrink-0 text-ember" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+              </svg>
+              {HOURS}
+            </p>
             <a
               href="/contact/"
               className="btn-cta btn-cta--ember mt-5 [--fold-bg:var(--color-navy)]"

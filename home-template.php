@@ -83,6 +83,11 @@ $band_img    = home_url('/wp-content/uploads/2026/10/9.jpg'); // fondo de Proces
             <span class="transition-colors group-hover:text-ember">Structural Solutions</span>
           </a>
         </div>
+
+        <!-- Teléfonos + horario (omega_contact_strip en functions.php) -->
+        <div class="mt-10 border-t border-white/15 pt-6">
+          <?php echo omega_contact_strip(); ?>
+        </div>
       </div>
 
       <!-- Quick-quote form -->

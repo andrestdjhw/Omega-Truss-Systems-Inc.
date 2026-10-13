@@ -61,12 +61,13 @@ if (!$hero_img) {
         <!-- Contacto directo -->
         <div class="form-chip form-chip--glass p-8">
           <h2 class="font-display text-lg font-bold text-white">Prefer to talk it through?</h2>
-          <!-- TODO NAP: horario de oficina -->
-          <div class="mt-5 space-y-2 text-sm text-white/75">
-            <p><a href="tel:+17609867177" class="hover:text-ember transition-colors">(760) 986-7177</a></p>
+          <!-- Teléfonos y horario: omega_contact_lines() en functions.php -->
+          <div class="mt-5 text-sm">
+            <?php echo omega_contact_lines('dark'); ?>
+          </div>
+          <div class="mt-5 space-y-2 border-t border-white/10 pt-5 text-sm text-white/75">
             <p><a href="mailto:info@omegatrusssystems.com" class="hover:text-ember transition-colors">info@omegatrusssystems.com</a></p>
             <address class="not-italic"><a href="<?php echo esc_url(OMEGA_GMB_URL); ?>" target="_blank" rel="noopener noreferrer" class="hover:text-ember transition-colors">72215 Woburn Ct<br>Thousand Palms, CA 92276</a></address>
-            <p class="text-white/50">Office hours: [pending]</p>
           </div>
         </div>
 

@@ -111,8 +111,10 @@ if (!$hero_img) {
               72215 Woburn Ct<br>Thousand Palms, CA 92276
             </a>
           </address>
-          <p><a href="tel:+17609867177" class="hover:text-ember transition-colors">(760) 986-7177</a></p>
           <p><a href="mailto:info@omegatrusssystems.com" class="hover:text-ember transition-colors">info@omegatrusssystems.com</a></p>
+        </div>
+        <div class="mt-6 max-w-sm border-t border-navy/10 pt-5 text-sm">
+          <?php echo omega_contact_lines('light'); ?>
         </div>
         <a href="<?php echo esc_url(OMEGA_GMB_URL); ?>"
            target="_blank" rel="noopener noreferrer"

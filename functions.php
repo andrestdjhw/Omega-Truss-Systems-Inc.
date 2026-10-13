@@ -6,6 +6,96 @@ define('OMEGA_GMB_PLACE_ID', 'ChIJizbc1hDj2oAR_MSeSCkaGRU');
 define('OMEGA_GMB_URL', 'https://www.google.com/maps/search/?api=1&query=Omega+Truss+System&query_place_id=' . OMEGA_GMB_PLACE_ID);
 define('OMEGA_REVIEW_URL', 'https://search.google.com/local/writereview?placeid=' . OMEGA_GMB_PLACE_ID);
 
+/* ============ Contacto: teléfonos y horario (en JS: src/scripts/Brand.js) ============ */
+define('OMEGA_HOURS', 'Mon – Fri · 7:30 AM – 3:30 PM');
+
+function omega_phones() {
+  return array(
+    array('Main Line', '(760) 986-7177'),
+    array('Project Management', '(442) 402-7015'),
+    array('General Questions', '(760) 534-8545'),
+  );
+}
+
+function omega_tel($number) {
+  return 'tel:+1' . preg_replace('/\D/', '', $number);
+}
+
+// Lista de teléfonos con etiqueta + horario. $tone: 'dark' (sobre navy) | 'light' (sobre blanco)
+function omega_contact_lines($tone = 'dark') {
+  $label  = $tone === 'dark' ? 'text-white/50' : 'text-navy/50';
+  $number = $tone === 'dark' ? 'text-white' : 'text-navy';
+  $muted  = $tone === 'dark' ? 'text-white/70' : 'text-navy/70';
+  $out = '<dl class="space-y-2.5">';
+  foreach (omega_phones() as $p) {
+    $out .= '<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">'
+          . '<dt class="font-display text-[11px] font-semibold uppercase tracking-[0.14em] ' . $label . '">' . esc_html($p[0]) . '</dt>'
+          . '<dd><a href="' . esc_attr(omega_tel($p[1])) . '" class="font-display text-[15px] font-semibold ' . $number . ' hover:text-ember transition-colors">' . esc_html($p[1]) . '</a></dd>'
+          . '</div>';
+  }
+  $out .= '</dl>';
+  $out .= '<p class="mt-4 flex items-center gap-2 ' . $muted . '">'
+        . '<svg class="h-4 w-4 shrink-0 text-ember" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'
+        . '<span>' . esc_html(OMEGA_HOURS) . '</span></p>';
+  return $out;
+}
+
+// Versión compacta para el hero del Home: teléfonos en columnas + horario
+function omega_contact_strip() {
+  $out = '<div class="grid max-w-2xl grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-3">';
+  foreach (omega_phones() as $p) {
+    $out .= '<a href="' . esc_attr(omega_tel($p[1])) . '" class="group block">'
+          . '<span class="block font-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/50">' . esc_html($p[0]) . '</span>'
+          . '<span class="mt-0.5 block font-display text-[15px] font-semibold text-white transition-colors group-hover:text-ember">' . esc_html($p[1]) . '</span>'
+          . '</a>';
+  }
+  $out .= '</div>';
+  $out .= '<p class="mt-4 flex items-center gap-2 text-sm text-white/70">'
+        . '<svg class="h-4 w-4 shrink-0 text-ember" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'
+        . '<span>' . esc_html(OMEGA_HOURS) . '</span></p>';
+  return $out;
+}
+
+// Datos estructurados LocalBusiness (horario, teléfonos, dirección) para Google
+add_action('wp_head', function () {
+  if (!is_front_page() && !is_page(array('contact', 'location'))) {
+    return;
+  }
+  $phones = omega_phones();
+  $data = array(
+    '@context' => 'https://schema.org',
+    '@type'    => 'LocalBusiness',
+    'name'     => 'Omega Truss Systems',
+    'url'      => home_url('/'),
+    'logo'     => home_url('/wp-content/uploads/2026/07/Omega_Logotipo-Horizontal-04.png'),
+    'email'    => 'info@omegatrusssystems.com',
+    'telephone' => '+1-' . str_replace(array('(', ') '), array('', '-'), $phones[0][1]),
+    'address'  => array(
+      '@type' => 'PostalAddress',
+      'streetAddress'   => '72215 Woburn Ct',
+      'addressLocality' => 'Thousand Palms',
+      'addressRegion'   => 'CA',
+      'postalCode'      => '92276',
+      'addressCountry'  => 'US',
+    ),
+    'openingHoursSpecification' => array(array(
+      '@type'     => 'OpeningHoursSpecification',
+      'dayOfWeek' => array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'),
+      'opens'     => '07:30',
+      'closes'    => '15:30',
+    )),
+    'contactPoint' => array_map(function ($p) {
+      return array(
+        '@type'       => 'ContactPoint',
+        'contactType' => $p[0],
+        'telephone'   => '+1-' . str_replace(array('(', ') '), array('', '-'), $p[1]),
+      );
+    }, array_slice($phones, 1)),
+    'hasMap' => OMEGA_GMB_URL,
+  );
+  echo '<script type="application/ld+json">' . wp_json_encode($data, JSON_UNESCAPED_SLASHES) . "</script>\n";
+});
+
 function omega_load_assets() {
   $js_path  = get_theme_file_path('/build/index.js');
   $css_path = get_theme_file_path('/build/index.css');
